@@ -1,12 +1,16 @@
 <template>
   <div>
     <h1 />
-    <ul
-      v-for="(user, index) in users.data"
-      :key="index"
+    <ol
+      :start="users.from"
     >
-      <li>{{ user.name }}</li>
-    </ul>
+      <li
+        v-for="(user, index) in users.data"
+        :key="index"
+      >
+        {{ user.name }}
+      </li>
+    </ol>
     <router-link
       v-if="users.prev_page_url"
       :to="{ name: 'users', query: { page: users.current_page - 1 }}"
