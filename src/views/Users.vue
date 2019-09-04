@@ -15,13 +15,13 @@
     </router-link>
     Page {{ users.current_page }} of
     <router-link
-      v-if="users.last_page_url !== users.current_page"
-      :to="{ name: 'users', query: { page: users.last_page_url }}"
+      v-if="users.last_page !== users.current_page"
+      :to="{ name: 'users', query: { page: users.last_page }}"
     >
-      {{ users.last_page_url }}
+      {{ users.last_page }}
     </router-link>
     <span v-else>
-      {{ users.total }}
+      {{ users.last_page }}
     </span>
     <router-link
       v-if="users.next_page_url"
@@ -38,6 +38,11 @@ import Vue from 'vue';
 export default Vue.extend({
   name: 'Users',
   computed: mapState(['users']),
+  watch: {
+    $route(to, from) {
+      this.load();
+    },
+  },
   mounted() {
     this.load();
   },
