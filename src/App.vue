@@ -1,16 +1,23 @@
 <template>
-  <div id="app">
-    <div id="nav">
-      <router-link :to="{name: 'home'}">
-        Home
-      </router-link>
-      <router-link :to="{name: 'about'}">
-        About
-      </router-link>
-      <router-link :to="{name: 'users'}">
-        Users
-      </router-link>
-    </div>
+  <div
+    id="app"
+    class="min-h-screen flex flex-col"
+  >
+    <app-header />
+    <main class="flex-1 relative">
     <router-view />
+    </main>
   </div>
 </template>
+
+<script lang="ts">
+import Vue from 'vue';
+import AppHeader from '@/layout/Header.vue';
+
+export default Vue.extend({
+  name: 'App',
+  components: {
+    AppHeader,
+  },
+});
+</script>
