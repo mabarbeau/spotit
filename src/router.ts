@@ -26,9 +26,7 @@ export default new Router({
     {
       path: '/account',
       name: 'account',
-      redirect: to => {
-        return { name: 'login' }
-      },
+      redirect: to => ({ name: 'login' }),
       component: () => import(/* webpackChunkName: "account" */ '@/views/Account.vue'),
       children: [
         {
