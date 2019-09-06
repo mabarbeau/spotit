@@ -1,5 +1,5 @@
 <template>
-  <footer class="flex">
+  <footer class="bg-gray-800 text-gray-100 text-center">
     Footer
   </footer>
 </template>
