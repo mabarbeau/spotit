@@ -11,7 +11,7 @@ export default new Router({
     {
       path: '/',
       name: 'home',
-      component: Home,
+      component: () => import(/* webpackChunkName: "home" */ '@/views/Home.vue'),
     },
     {
       path: '/about',
@@ -40,6 +40,17 @@ export default new Router({
           component: () => import(/* webpackChunkName: "register" */ '@/views/auth/Register.vue'),
         },
       ],
+    },
+    {
+      path: '/spots',
+      name: 'spots',
+      component: () => import(/* webpackChunkName: "spots" */ '@/views/spots/Index.vue'),
+    },
+    {
+      path: '/spots/:slug',
+      name: 'spots show',
+      component: () => import(/* webpackChunkName: "login" */ '@/views/spots/Show.vue'),
+      props: true,
     },
     {
       path: '*',
