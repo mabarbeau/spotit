@@ -41,5 +41,10 @@ export default new Router({
         },
       ],
     },
+    {
+      path: '*',
+      name: '404',
+      component: () => import(/* webpackChunkName: "404" */ '@/views/errors/404.vue'),
+    },
   ],
 });
