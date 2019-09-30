@@ -3,7 +3,7 @@
 </template>
 
 <script>
-import gmapsInit from '@/utils/gmaps.js';
+import gmapsInit from '@/utils/gmaps';
 
 export default {
   name: 'BaseMap',
