@@ -1,8 +1,8 @@
-import Vue from 'vue';
-import Vuex from 'vuex';
-import Users from './services/UsersService';
+import Vue from 'vue'
+import Vuex from 'vuex'
+import Users from './services/UsersService'
 
-Vue.use(Vuex);
+Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
@@ -10,12 +10,12 @@ export default new Vuex.Store({
   },
   mutations: {
     SET_USERS(state, users) {
-      state.users = users;
+      state.users = users
     },
   },
   actions: {
     async loadUsers({ commit }) {
-      commit('SET_USERS', await Users.all());
+      commit('SET_USERS', await Users.all())
     },
   },
-});
+})

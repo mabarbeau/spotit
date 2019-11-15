@@ -1,8 +1,7 @@
-import Vue from 'vue';
-import Router from 'vue-router';
-import Home from '@/views/Home.vue';
+import Vue from 'vue'
+import Router from 'vue-router'
 
-Vue.use(Router);
+Vue.use(Router)
 
 export default new Router({
   mode: 'history',
@@ -26,7 +25,7 @@ export default new Router({
     {
       path: '/account',
       name: 'account',
-      redirect: to => ({ name: 'login' }),
+      redirect: () => ({ name: 'login' }),
       component: () => import(/* webpackChunkName: "account" */ '@/views/Account.vue'),
       children: [
         {
@@ -58,4 +57,4 @@ export default new Router({
       component: () => import(/* webpackChunkName: "404" */ '@/views/errors/404.vue'),
     },
   ],
-});
+})

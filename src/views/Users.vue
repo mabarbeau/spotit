@@ -36,24 +36,24 @@
   </div>
 </template>
 <script lang="ts">
-import { mapState } from 'vuex';
-import Vue from 'vue';
+import { mapState } from 'vuex'
+import Vue from 'vue'
 
 export default Vue.extend({
   name: 'Users',
   computed: mapState(['users']),
   watch: {
-    $route(to, from) {
-      this.load();
+    $route() {
+      this.load()
     },
   },
   mounted() {
-    this.load();
+    this.load()
   },
   methods: {
     load() {
-      this.$store.dispatch('loadUsers');
+      this.$store.dispatch('loadUsers')
     },
   },
-});
+})
 </script>

@@ -8,8 +8,8 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import BaseMap from '@/components/BaseMap.vue';
+import Vue from 'vue'
+import BaseMap from '@/components/BaseMap.vue'
 
 export default Vue.extend({
   name: 'SpotsShow',
@@ -22,5 +22,5 @@ export default Vue.extend({
       required: true,
     },
   },
-});
+})
 </script>

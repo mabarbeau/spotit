@@ -12,9 +12,9 @@
 </template>
 
 <script lang="ts">
-import Vue from 'vue';
-import AppHeader from '@/layout/Header.vue';
-import AppFooter from '@/layout/Footer.vue';
+import Vue from 'vue'
+import AppHeader from '@/layout/Header.vue'
+import AppFooter from '@/layout/Footer.vue'
 
 export default Vue.extend({
   name: 'App',
@@ -22,5 +22,5 @@ export default Vue.extend({
     AppHeader,
     AppFooter,
   },
-});
+})
 </script>
