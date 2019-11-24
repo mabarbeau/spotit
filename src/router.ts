@@ -27,18 +27,11 @@ export default new Router({
       name: 'account',
       redirect: () => ({ name: 'login' }),
       component: () => import(/* webpackChunkName: "account" */ '@/views/Account.vue'),
-      children: [
-        {
-          path: 'login',
-          name: 'login',
-          component: () => import(/* webpackChunkName: "login" */ '@/views/auth/Login.vue'),
-        },
-        {
-          path: 'register',
-          name: 'register',
-          component: () => import(/* webpackChunkName: "register" */ '@/views/auth/Register.vue'),
-        },
-      ],
+    },
+    {
+      path: '/login',
+      name: 'login',
+      component: () => import(/* webpackChunkName: "login" */ '@/views/Login.vue'),
     },
     {
       path: '/spots',
