@@ -13,7 +13,21 @@ import render from '@/utils/gapis'
 export default Vue.extend({
   name: 'Login',
   mounted() {
-    render('google-login-button')
+    render('google-login-button', {
+      onsuccess: this.onSuccess,
+      onfailure: this.onFailure,
+    })
+  },
+  methods: {
+    onSuccess(user: any) {
+      this.$store.dispatch('login', {
+        service: 'google',
+        token: user.getAuthResponse().id_token,
+      })
+    },
+    onFailure(error: any) {
+      console.log(error)
+    },
   },
 })
 </script>
