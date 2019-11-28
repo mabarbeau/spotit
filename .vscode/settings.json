@@ -1,0 +1,67 @@
+{
+    // ===
+    // Spacing
+    // ===
+    "editor.insertSpaces": true,
+    "editor.tabSize": 2,
+    "editor.trimAutoWhitespace": true,
+    "files.trimTrailingWhitespace": true,
+    "files.eol": "\n",
+    "files.insertFinalNewline": true,
+    "files.trimFinalNewlines": true,
+    // ===
+    // Files
+    // ===
+    "files.exclude": {
+        "**/*.log": true,
+        "**/*.log*": true,
+        "**/dist": true,
+        "**/coverage": true
+    },
+    "files.associations": {
+        ".markdownlintrc": "jsonc"
+    },
+    // ===
+    // Linting
+    // ===
+    "eslint.packageManager": "yarn",
+    "eslint.validate": [
+        "javascript",
+        "javascriptreact",
+        {
+            "language": "vue",
+            "autoFix": true
+        }
+    ],
+    "prettier.semi": false,
+    "prettier.requireConfig": true,
+    "vetur.format.defaultFormatter.html": "js-beautify-html",
+    // ===
+    // HTML
+    // ===
+    "html.format.enable": true,
+    "emmet.triggerExpansionOnTab": true,
+    "emmet.includeLanguages": {
+        "vue-html": "html"
+    },
+    // ===
+    // JS(ON)
+    // ===
+    "jest.autoEnable": false,
+    "jest.enableCodeLens": false,
+    "javascript.format.enable": false,
+    "json.format.enable": false,
+    // ===
+    // CSS
+    // ===
+    "stylelint.enable": true,
+    "css.validate": false,
+    "scss.validate": false,
+    // ===
+    // MARKDOWN
+    // ===
+    "[markdown]": {
+        "editor.wordWrap": "wordWrapColumn",
+        "editor.wordWrapColumn": 80
+    }
+}
