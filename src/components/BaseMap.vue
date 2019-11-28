@@ -10,9 +10,9 @@ export default Vue.extend({
   name: 'BaseMap',
   async mounted() {
     try {
-      const google = await gmapsInit()
-      const geocoder = new google.maps.Geocoder()
-      const map = new google.maps.Map(this.$el)
+      const google: any = await gmapsInit()
+      const geocoder: google.maps.Geocoder = new google.maps.Geocoder()
+      const map: google.maps.Map = new google.maps.Map(this.$el)
 
       geocoder.geocode({ address: 'Austria' }, (results: Array<any>, status: any) => {
         if (status !== 'OK' || !results[0]) {

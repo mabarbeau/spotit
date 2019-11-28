@@ -4,6 +4,7 @@ import router from './router'
 import store from './store'
 import './registerServiceWorker'
 import './styles/main.scss'
+import {} from 'googlemaps'
 
 Vue.config.productionTip = false
 
