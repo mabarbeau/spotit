@@ -2,10 +2,11 @@
   <div class="BaseMap" />
 </template>
 
-<script>
+<script lang="ts">
+import Vue from 'vue'
 import gmapsInit from '@/utils/gmaps'
 
-export default {
+export default Vue.extend({
   name: 'BaseMap',
   async mounted() {
     try {
@@ -13,7 +14,7 @@ export default {
       const geocoder = new google.maps.Geocoder()
       const map = new google.maps.Map(this.$el)
 
-      geocoder.geocode({ address: 'Austria' }, (results, status) => {
+      geocoder.geocode({ address: 'Austria' }, (results: Array<any>, status: any) => {
         if (status !== 'OK' || !results[0]) {
           throw new Error(status)
         }
@@ -25,7 +26,7 @@ export default {
       console.error(error)
     }
   },
-}
+})
 </script>
 
 <style>
