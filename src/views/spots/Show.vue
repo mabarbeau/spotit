@@ -1,6 +1,11 @@
 <template>
   <div>
     <h1> {{ spot.title }} </h1>
+    <router-link
+      :to="{name: 'spots'}"
+    >
+      Back
+    </router-link>
     <BaseMap :markers="markers" />
   </div>
 </template>
