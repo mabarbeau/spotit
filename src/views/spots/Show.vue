@@ -1,12 +1,13 @@
 <template>
   <div>
-    <h1> Show Spots {{ slug }} </h1>
+    <h1> {{ spot.title }} </h1>
     <BaseMap :markers="markers" />
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapState } from 'vuex'
 import BaseMap from '@/components/BaseMap.vue'
 
 export default Vue.extend({
@@ -21,6 +22,7 @@ export default Vue.extend({
     },
   },
   computed: {
+    ...mapState(['spot']),
     markers(): google.maps.LatLngLiteral[] {
       return [
         {
@@ -36,6 +38,19 @@ export default Vue.extend({
           lng: 60,
         },
       ]
+    },
+  },
+  watch: {
+    $route() {
+      this.load()
+    },
+  },
+  mounted() {
+    this.load()
+  },
+  methods: {
+    load() {
+      this.$store.dispatch('loadSpot', this.slug)
     },
   },
 })

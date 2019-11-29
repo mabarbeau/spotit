@@ -9,7 +9,7 @@ import gmapsInit from '@/utils/gmaps'
 function instanceOfLatLngLiteral(
   object: any
 ): object is google.maps.LatLngLiteral {
-  return object !== undefined
+  return 'lat' in object && 'lng' in object
 }
 
 export default Vue.extend({
