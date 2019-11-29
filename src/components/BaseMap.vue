@@ -29,18 +29,13 @@ export default Vue.extend({
       map: undefined,
     }
   },
-  computed: {
-    computedMarkers(): google.maps.LatLngLiteral[] {
-      return this.markers
-    },
-  },
   async mounted() {
     try {
       const google: any = await gmapsInit()
       this.map = new google.maps.Map(this.$el)
-      const bounds: google.maps.LatLngBounds = new google.maps.LatLngBounds()
-      if (this.map && this.computedMarkers) {
-        this.computedMarkers.forEach((marker) => {
+      const bounds = new google.maps.LatLngBounds()
+      if (this.map && this.markers) {
+        this.markers.forEach((marker) => {
           bounds.extend(marker)
           // eslint-disable-next-line no-new
           new google.maps.Marker({
