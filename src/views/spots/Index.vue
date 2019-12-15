@@ -33,7 +33,9 @@ export default Vue.extend({
     BaseMap,
   },
   computed: {
-    ...mapState(['spots']),
+    ...mapState('spots', [
+      'spots',
+    ]),
     markers(): google.maps.LatLngLiteral[] {
       return [
         {
@@ -61,7 +63,7 @@ export default Vue.extend({
   },
   methods: {
     load() {
-      this.$store.dispatch('loadSpots')
+      this.$store.dispatch('spots/loadSpots')
     },
   },
 })

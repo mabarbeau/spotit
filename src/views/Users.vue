@@ -18,7 +18,9 @@ export default Vue.extend({
   components: {
     BaseList,
   },
-  computed: mapState(['users']),
+  computed: mapState('users', [
+    'users',
+  ]),
   watch: {
     $route() {
       this.load()
@@ -29,7 +31,7 @@ export default Vue.extend({
   },
   methods: {
     load() {
-      this.$store.dispatch('loadUsers')
+      this.$store.dispatch('users/loadUsers')
     },
   },
 })

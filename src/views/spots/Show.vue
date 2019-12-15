@@ -27,7 +27,9 @@ export default Vue.extend({
     },
   },
   computed: {
-    ...mapState(['spot']),
+    ...mapState('spot', [
+      'spot',
+    ]),
     markers(): google.maps.LatLngLiteral[] {
       return [
         {

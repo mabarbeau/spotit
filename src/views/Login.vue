@@ -20,7 +20,7 @@ export default Vue.extend({
   },
   methods: {
     onSuccess(user: any) {
-      this.$store.dispatch('login', {
+      this.$store.dispatch('auth/login', {
         service: 'google',
         token: user.getAuthResponse().id_token,
       })
