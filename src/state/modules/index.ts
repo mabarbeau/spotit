@@ -4,11 +4,11 @@
 
 import camelCase from 'lodash/camelCase'
 
-const modulesCache = {}
+const modulesCache: any = {}
 const storeData = { modules: {} }
 
 // Recursively get the namespace of a Vuex module, even if nested.
-function getNamespace(subtree, path) {
+function getNamespace(subtree: any, path: any[]): any {
   if (path.length === 1) return subtree
 
   const namespace = path.shift()
@@ -44,7 +44,7 @@ function getNamespace(subtree, path) {
     modulesCache[fileName] = moduleDefinition
 
     // Get the module path as an array.
-    const modulePath = fileName
+    const modulePath: any[] = fileName
       // Remove the "./" from the beginning.
       .replace(/^\.\//, '')
       // Remove the file extension from the end.

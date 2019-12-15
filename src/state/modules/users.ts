@@ -36,7 +36,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async loadUsers({ commit }) {
+  async loadUsers({ commit }: any) {
     commit('SET_USERS', await Users.all())
   },
 }

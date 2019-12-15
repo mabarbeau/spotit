@@ -2,8 +2,8 @@ import allModules from '@/state/modules'
 import store from '@/state/store'
 
 export default function dispatchActionForAllModules(
-  actionName,
-  { modules = allModules, modulePrefix = '', flags = {} } = {}
+  actionName: string,
+  { modules = allModules, modulePrefix = '', flags = {} }: any = {}
 ) {
   // For every module...
   // eslint-disable-next-line

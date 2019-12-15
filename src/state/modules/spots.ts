@@ -32,10 +32,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async loadSpots({ commit }) {
+  async loadSpots({ commit }: any) {
     commit('SET_SPOTS', await Spots.all())
   },
-  async loadSpot({ commit }, slug: string) {
+  async loadSpot({ commit }: any, slug: string) {
     commit('SET_SPOT', await Spots.find(slug))
   },
 }

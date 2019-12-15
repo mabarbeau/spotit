@@ -22,7 +22,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({ commit }, params: any) {
+  async login({ commit }: any, params: any) {
     commit('SET_ME', await Auth.login(params))
   },
 }
