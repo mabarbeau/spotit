@@ -2,7 +2,7 @@
   <div>
     <h1>
       Spots Index
-      {{ spots.current_page }}
+      {{ spots.currentPage }}
     </h1>
     <section>
       <base-pagination

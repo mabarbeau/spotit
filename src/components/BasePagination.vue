@@ -19,24 +19,24 @@
       </li>
     </ol>
     <router-link
-      v-if="list.prev_page_url"
-      :to="{ name, query: { page: list.current_page - 1 }}"
+      v-if="list.prevPageUrl"
+      :to="{ name, query: { page: list.currentPage - 1 }}"
     >
       &lt;
     </router-link>
-    Page {{ list.current_page }} of
+    Page {{ list.currentPage }} of
     <router-link
-      v-if="list.last_page !== list.current_page"
-      :to="{ name, query: { page: list.last_page }}"
+      v-if="list.lastPage !== list.currentPage"
+      :to="{ name, query: { page: list.lastPage }}"
     >
-      {{ list.last_page }}
+      {{ list.lastPage }}
     </router-link>
     <span v-else>
-      {{ list.last_page }}
+      {{ list.lastPage }}
     </span>
     <router-link
-      v-if="list.next_page_url"
-      :to="{ name, query: { page: list.current_page + 1 }}"
+      v-if="list.nextPageUrl"
+      :to="{ name, query: { page: list.currentPage + 1 }}"
     >
       &gt;
     </router-link>

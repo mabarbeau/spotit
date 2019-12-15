@@ -1,4 +1,5 @@
 import axios from 'axios'
+import { transform, isEmpty, camelCase } from 'lodash'
 
 interface Axios {
   get(url: string): any;
@@ -43,8 +44,17 @@ export default class ApiService implements Axios {
 
   private async return(response: Promise<AxiosResponse>) {
     return response
-      .then((reply) => reply.data)
+      .then((reply) => this.camelCaseKeys(reply.data))
       .catch((error) => this.handleError(error))
+  }
+
+  private camelCaseKeys(object: any): any {
+    return transform(object, (result: any, value: any, key: string) => {
+      if (typeof value === 'object' && !isEmpty(value)) {
+        value = this.camelCaseKeys(value)
+      }
+      result[camelCase(key)] = value
+    })
   }
 
   // TODO: Error handling

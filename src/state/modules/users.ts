@@ -5,18 +5,18 @@ interface UserInterface {
 }
 
 interface UserCollectionInterface {
-  // current_page: number
+  currentPage: number
   data: UserInterface[]
-  // first_page_url: string
-  // from: number
-  // last_page: number
-  // last_page_url: string
-  // next_page_url: string|null
-  // path: string
-  // per_page: number
-  // prev_page_url: string|null
-  // to: string
-  // total: number
+  firstPageUrl: string
+  from: number
+  lastPage: number
+  lastPageUrl: string
+  nextPageUrl: string|null
+  path: string
+  perPage: number
+  prevPageUrl: string|null
+  to: string
+  total: number
 }
 
 interface UserStateInterface {
