@@ -1,13 +1,13 @@
 import axios from 'axios'
 
 interface Axios {
-    get(url: string): any;
-    post(url: string, params: any): any;
-    put(url: string, params: any): any;
-    delete(url: string): any;
+  get(url: string): any;
+  post(url: string, params: any): any;
+  put(url: string, params: any): any;
+  delete(url: string): any;
 }
 interface AxiosResponse {
-    data: any[];
+  data: any[];
 }
 
 export default class ApiService implements Axios {
