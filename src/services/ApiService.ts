@@ -11,6 +11,12 @@ interface AxiosResponse {
   data: any[];
 }
 
+function serialize(object: any) {
+  const arr: string[] = []
+  Object.keys(object).forEach((key) => arr.push(`${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`))
+  return `?${arr.join('&')}`
+}
+
 export default class ApiService implements Axios {
   private axios: Axios;
 
@@ -26,8 +32,9 @@ export default class ApiService implements Axios {
     })
   }
 
-  public async get(url: string) {
-    return this.return(this.axios.get(url + window.location.search))
+  public async get(url: string, params: any = {}) {
+    const query = params ? serialize(params) : window.location.search
+    return this.return(this.axios.get(url + query))
   }
 
   public async post(url: string, params: any = {}) {

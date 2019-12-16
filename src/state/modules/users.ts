@@ -1,4 +1,4 @@
-import Users from '@/services/UsersService'
+import Router from '@/services/ApiRouter'
 
 interface UserInterface {
   name: string
@@ -37,6 +37,6 @@ export const mutations = {
 
 export const actions = {
   async loadUsers({ commit }: any) {
-    commit('SET_USERS', await Users.all())
+    commit('SET_USERS', await Router.get('users.all'))
   },
 }
