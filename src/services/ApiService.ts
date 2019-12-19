@@ -1,5 +1,6 @@
 import axios from 'axios'
 import { transform, isEmpty, camelCase } from 'lodash'
+import querystring from 'querystring'
 
 interface Axios {
   get(url: string): any;
@@ -9,12 +10,6 @@ interface Axios {
 }
 interface AxiosResponse {
   data: any[];
-}
-
-function serialize(object: any) {
-  const arr: string[] = []
-  Object.keys(object).forEach((key) => arr.push(`${encodeURIComponent(key)}=${encodeURIComponent(object[key])}`))
-  return `?${arr.join('&')}`
 }
 
 export default class ApiService implements Axios {
@@ -33,7 +28,9 @@ export default class ApiService implements Axios {
   }
 
   public async get(url: string, params: any = {}) {
-    const query = params ? serialize(params) : window.location.search
+    const query = params
+      ? `?${querystring.stringify(params)}`
+      : window.location.search
     return this.return(this.axios.get(url + query))
   }
 
