@@ -17,7 +17,7 @@ export default class ApiService implements Axios {
 
   private error: Error | null = null
 
-  constructor(baseURL: string = process.env.VUE_APP_API) {
+  constructor(baseURL: string|undefined = process.env.VUE_APP_API) {
     this.axios = axios.create({
       baseURL,
       withCredentials: true,
