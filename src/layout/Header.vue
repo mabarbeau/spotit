@@ -15,16 +15,12 @@
     </router-link>
     <nav class="inline-flex items-center">
       <router-link
+        v-for="(link, index) in navigation"
+        :key="index"
         class="pl-5 text-gray-100 hover:text-gray-300"
-        :to="{name: 'about'}"
+        :to="link.to"
       >
-        About
-      </router-link>
-      <router-link
-        class="pl-5 text-gray-100 hover:text-gray-300"
-        :to="{name: 'account'}"
-      >
-        Account
+        {{ link.label }}
       </router-link>
     </nav>
   </div>
@@ -34,6 +30,23 @@
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: 'AppHeader',
+  data() {
+    return {
+      navigation: [
+        {
+          label: 'About',
+          to: {
+            name: 'about',
+          },
+        },
+        {
+          label: 'Account',
+          to: {
+            name: 'account',
+          },
+        },
+      ],
+    }
+  },
 })
 </script>
