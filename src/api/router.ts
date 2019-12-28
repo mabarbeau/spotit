@@ -1,5 +1,5 @@
-import ApiRoutes from './ApiRoutes'
-import ApiService from './ApiService'
+import ApiRoutes from './routes'
+import ApiService from './service'
 
 if (!process.env.VUE_APP_API) throw new Error('API is undefined')
 const Api = new ApiService(process.env.VUE_APP_API)
@@ -18,7 +18,7 @@ class BaseException extends Error {
 class RouteNotFoundException extends BaseException {}
 class ParamNotFoundException extends BaseException {}
 
-export default class ApiRouter {
+export default class Router {
   public static get(name: string, params: any = {}) {
     [name, params] = this.url(name, params)
     return Api.get(name, params)

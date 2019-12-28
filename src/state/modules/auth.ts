@@ -1,5 +1,5 @@
 
-import Router from '@/services/ApiRouter'
+import Router from '@/api/router'
 
 interface UserInterface {
   name: string

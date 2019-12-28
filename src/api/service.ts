@@ -12,7 +12,7 @@ interface AxiosResponse {
   data: any[];
 }
 
-export default class ApiService implements Axios {
+export default class Service implements Axios {
   private axios: Axios;
 
   private error: Error | null = null
