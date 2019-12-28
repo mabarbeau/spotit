@@ -1,4 +1,4 @@
-import Router from '@/api/router'
+import Api from '@/api/api'
 
 interface UserInterface {
   name: string
@@ -37,7 +37,7 @@ export const mutations = {
 
 export const actions = {
   async loadUsers({ commit }: any) {
-    commit('SET_USERS', await Router.get({
+    commit('SET_USERS', await Api.get({
       name: 'users.all',
       payload: window.location.search,
     }))

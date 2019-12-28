@@ -1,4 +1,4 @@
-import Router from '@/api/router'
+import Api from '@/api/api'
 
 interface SpotsInterface {
 }
@@ -33,12 +33,12 @@ export const mutations = {
 
 export const actions = {
   async loadSpots({ commit }: any) {
-    commit('SET_SPOTS', await Router.get({
+    commit('SET_SPOTS', await Api.get({
       name: 'spots.all',
     }))
   },
   async loadSpot({ commit }: any, slug: string) {
-    commit('SET_SPOT', await Router.get({
+    commit('SET_SPOT', await Api.get({
       name: 'spots.find',
       params: { slug },
     }))

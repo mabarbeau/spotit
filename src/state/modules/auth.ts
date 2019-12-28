@@ -1,5 +1,5 @@
 
-import Router from '@/api/router'
+import Api from '@/api/api'
 
 interface UserInterface {
   name: string
@@ -23,7 +23,7 @@ export const mutations = {
 
 export const actions = {
   async login({ commit }: any, payload: any) {
-    commit('SET_ME', await Router.post({
+    commit('SET_ME', await Api.post({
       name: 'auth.login',
       payload,
     }))

@@ -1,8 +1,7 @@
-import Routes from './routes'
-import Service from './service'
-
-if (!process.env.VUE_APP_API) throw new Error('API is undefined')
-const Api = new Service(process.env.VUE_APP_API)
+// eslint-disable-next-line no-unused-vars
+import axios, { AxiosInstance, AxiosResponse } from 'axios'
+import { transform, isEmpty, camelCase } from 'lodash'
+import querystring from 'querystring'
 
 class BaseException extends Error {
   constructor(message: string) {
@@ -32,38 +31,85 @@ interface RouteParameters {
   payload?: any | undefined
 }
 
-type methods = 'get' | 'post' | 'put' | 'patch' | 'delete'
-
 export default class Router {
-  public static get(params: RouteParameters) {
-    return this.method('get', params)
+  protected routes: any
+
+  protected axios: AxiosInstance
+
+  protected error: Error | null = null
+
+  constructor(baseURL: string, routes: any) {
+    this.routes = routes
+    this.axios = axios.create({
+      baseURL,
+      withCredentials: true,
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
   }
 
-  public static post(params: RouteParameters) {
-    return this.method('post', params)
+  public async get({
+    name,
+    params = undefined,
+    payload = '',
+  }: {
+    name: string
+    params?: any | undefined
+    payload?: querystring.ParsedUrlQueryInput | string
+  }) {
+    const query = typeof payload === 'string'
+      ? payload
+      : `?${querystring.stringify(payload)}`
+    return this.return(
+      this.axios.get(this.url(name, params) + query)
+    )
   }
 
-  public static put(params: RouteParameters) {
-    return this.method('put', params)
+  public async post({
+    name,
+    params = undefined,
+    payload = undefined,
+  }: RouteParameters) {
+    return this.return(
+      this.axios.post(this.url(name, params), payload)
+    )
   }
 
-  public static patch(params: RouteParameters) {
-    return this.method('patch', params)
+  public async put({
+    name,
+    params = undefined,
+    payload = undefined,
+  }: RouteParameters) {
+    return this.return(
+      this.axios.put(this.url(name, params), payload)
+    )
   }
 
-  public static delete(params: RouteParameters) {
-    return this.method('delete', params)
+  public async patch({
+    name,
+    params = undefined,
+    payload = undefined,
+  }: RouteParameters) {
+    return this.return(
+      this.axios.patch(this.url(name, params), payload)
+    )
   }
 
-  protected static method(
-    method: methods,
-    { name, params = undefined, payload = undefined }: RouteParameters
-  ) {
-    return Api[method](this.url(name, params), payload)
+  public async delete({
+    name,
+    params = undefined,
+  }: {
+    name: string
+    params?: any | undefined
+  }) {
+    return this.return(
+      this.axios.delete(this.url(name, params))
+    )
   }
 
-  protected static url(name: string, params: any = undefined): string {
-    let url = this.path(Routes, name.split('.'))
+  protected url(name: string, params: any = undefined): string {
+    let url = this.path(this.routes, name.split('.'))
     if (url.includes(':')) {
       url = url
         .split('/')
@@ -83,8 +129,8 @@ export default class Router {
     return url
   }
 
-  protected static path(
-    routes: any = Routes,
+  protected path(
+    routes: any,
     [next, ...rest]: string[]
   ): string {
     if (!(next in routes)) {
@@ -96,5 +142,30 @@ export default class Router {
       return routes[next]
     }
     return this.path(routes[next], rest)
+  }
+
+  protected async return(response: Promise<AxiosResponse>) {
+    return response
+      .then((reply) => this.camelCaseKeys(reply.data))
+      .catch((error) => this.handleError(error))
+  }
+
+  protected camelCaseKeys(object: any): any {
+    return transform(
+      object,
+      (result: any, value: any, key: string) => {
+        if (typeof value === 'object' && !isEmpty(value)) {
+          value = this.camelCaseKeys(value)
+        }
+        result[camelCase(key)] = value
+      }
+    )
+  }
+
+  // TODO: Error handling
+  protected handleError(error: Error) {
+    this.error = error
+    console.error(error)
+    return error
   }
 }
