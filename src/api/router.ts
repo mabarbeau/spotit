@@ -52,10 +52,17 @@ export default class Router {
   ): string {
     if (!(next in routes)) {
       throw new RouteNotFoundException(
-        `${next} not found in api`
+        `'${next}' not found in api routes`
       )
     }
-    if (rest.length) return this.path(routes[next], rest)
-    return routes[next]
+    if (!rest.length) {
+      return routes[next]
+    }
+    if (!routes[next].children) {
+      throw new RouteNotFoundException(
+        `'${next}' has no children`
+      )
+    }
+    return this.path(routes[next].children, rest)
   }
 }

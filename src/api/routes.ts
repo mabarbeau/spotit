@@ -1,14 +1,20 @@
 const routes: any = {
   auth: {
-    login: '/auth/login',
+    children: {
+      login: '/auth/login',
+    },
   },
   users: {
-    all: '/users',
-    find: '/users/:id/:name',
+    children: {
+      all: '/users',
+      find: '/users/:id/:name',
+    },
   },
   spots: {
-    all: '/spots',
-    find: '/spots/:slug',
+    children: {
+      all: '/spots',
+      find: '/spots/:slug',
+    },
   },
 }
 
