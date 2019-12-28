@@ -35,6 +35,7 @@ export const actions = {
   async loadSpots({ commit }: any) {
     commit('SET_SPOTS', await Api.get({
       name: 'spots.all',
+      payload: window.location.search,
     }))
   },
   async loadSpot({ commit }: any, slug: string) {
