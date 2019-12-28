@@ -1,5 +1,5 @@
 // eslint-disable-next-line no-unused-vars
-import axios, { AxiosInstance, AxiosResponse } from 'axios'
+import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
 import { transform, isEmpty, camelCase } from 'lodash'
 import querystring from 'querystring'
 
@@ -38,15 +38,9 @@ export default class Router {
 
   protected error: Error | null = null
 
-  constructor(baseURL: string, routes: any) {
+  constructor(routes: any, config: AxiosRequestConfig | undefined = undefined) {
     this.routes = routes
-    this.axios = axios.create({
-      baseURL,
-      withCredentials: true,
-      headers: {
-        'Content-Type': 'application/json',
-      },
-    })
+    this.axios = axios.create(config)
   }
 
   public async get({
