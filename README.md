@@ -1,4 +1,4 @@
-# spotit
+# Locator Application
 
 ## Project setup
 ```
