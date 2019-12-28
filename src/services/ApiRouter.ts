@@ -1,7 +1,8 @@
 import ApiRoutes from './ApiRoutes'
 import ApiService from './ApiService'
 
-const Api = new ApiService()
+if (!process.env.VUE_APP_API) throw new Error('API is undefined')
+const Api = new ApiService(process.env.VUE_APP_API)
 
 class BaseException extends Error {
   constructor(message: string) {
