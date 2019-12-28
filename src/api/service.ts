@@ -1,11 +1,7 @@
 // eslint-disable-next-line no-unused-vars
-import axios, { AxiosInstance } from 'axios'
+import axios, { AxiosInstance, AxiosResponse } from 'axios'
 import { transform, isEmpty, camelCase } from 'lodash'
 import querystring from 'querystring'
-
-interface AxiosResponse {
-  data: any[];
-}
 
 export default class Service {
   private axios: AxiosInstance;
