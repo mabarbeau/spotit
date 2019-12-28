@@ -95,11 +95,6 @@ export default class Router {
     if (!rest.length) {
       return routes[next]
     }
-    if (!routes[next].children) {
-      throw new RouteNotFoundException(
-        `'${next}' has no children`
-      )
-    }
-    return this.path(routes[next].children, rest)
+    return this.path(routes[next], rest)
   }
 }
