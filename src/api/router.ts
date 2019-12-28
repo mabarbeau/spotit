@@ -6,7 +6,7 @@ const Api = new Service(process.env.VUE_APP_API)
 
 class BaseException extends Error {
   constructor(message: string) {
-    super(message)
+    super(`\n\n${message}`)
     Object.setPrototypeOf(this, BaseException.prototype)
   }
 
@@ -15,8 +15,16 @@ class BaseException extends Error {
   }
 }
 
-class RouteNotFoundException extends BaseException {}
-class ParamNotFoundException extends BaseException {}
+class RouteNotFoundException extends BaseException {
+  constructor(message: string) {
+    super(`Route Not Found Exception: ${message}`)
+  }
+}
+class ParamNotFoundException extends BaseException {
+  constructor(message: string) {
+    super(`Parameter Not Found Exception: ${message}`)
+  }
+}
 
 export default class Router {
   public static get(name: string, params: any = {}) {
@@ -34,7 +42,7 @@ export default class Router {
           const key = segment.substr(1)
           if (!(key in params)) {
             throw new ParamNotFoundException(
-              `${key} not found in parameters`
+              `${key} not found`
             )
           }
           segment = params[key]
