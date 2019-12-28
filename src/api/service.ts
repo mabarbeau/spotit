@@ -27,10 +27,10 @@ export default class Service implements Axios {
     })
   }
 
-  public async get(url: string, params: any = {}) {
-    const query = params
-      ? `?${querystring.stringify(params)}`
-      : window.location.search
+  public async get(url: string, params: querystring.ParsedUrlQueryInput | string = '') {
+    const query = typeof params === 'string'
+      ? params
+      : `?${querystring.stringify(params)}`
     return this.return(this.axios.get(url + query))
   }
 
