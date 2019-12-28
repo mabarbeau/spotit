@@ -1,8 +1,8 @@
-import ApiRoutes from './routes'
-import ApiService from './service'
+import Routes from './routes'
+import Service from './service'
 
 if (!process.env.VUE_APP_API) throw new Error('API is undefined')
-const Api = new ApiService(process.env.VUE_APP_API)
+const Api = new Service(process.env.VUE_APP_API)
 
 class BaseException extends Error {
   constructor(message: string) {
@@ -25,7 +25,7 @@ export default class Router {
   }
 
   protected static url(name: string, params: any = {}): any[] {
-    let url = this.path(ApiRoutes, name.split('.'))
+    let url = this.path(Routes, name.split('.'))
     if (url.includes(':')) {
       url = url
         .split('/')
@@ -47,7 +47,7 @@ export default class Router {
   }
 
   protected static path(
-    routes: any = ApiRoutes,
+    routes: any = Routes,
     [next, ...rest]: string[]
   ): string {
     if (!(next in routes)) {
