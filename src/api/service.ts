@@ -1,19 +1,14 @@
-import axios from 'axios'
+// eslint-disable-next-line no-unused-vars
+import axios, { AxiosInstance } from 'axios'
 import { transform, isEmpty, camelCase } from 'lodash'
 import querystring from 'querystring'
 
-interface Axios {
-  get(url: string): any;
-  post(url: string, params: any): any;
-  put(url: string, params: any): any;
-  delete(url: string): any;
-}
 interface AxiosResponse {
   data: any[];
 }
 
-export default class Service implements Axios {
-  private axios: Axios;
+export default class Service {
+  private axios: AxiosInstance;
 
   private error: Error | null = null
 
@@ -31,15 +26,20 @@ export default class Service implements Axios {
     const query = typeof params === 'string'
       ? params
       : `?${querystring.stringify(params)}`
-    return this.return(this.axios.get(url + query))
+    const ret = this.return(this.axios.get(url + query))
+    return ret
   }
 
   public async post(url: string, params: any = {}) {
     return this.return(this.axios.post(url, params))
   }
 
-  public async put(url: string, params: any) {
+  public async put(url: string, params: any = {}) {
     return this.return(this.axios.put(url, params))
+  }
+
+  public async patch(url: string, params: any = {}) {
+    return this.return(this.axios.patch(url, params))
   }
 
   public async delete(url: string) {

@@ -22,7 +22,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async login({ commit }: any, params: any) {
-    commit('SET_ME', await Router.get('auth.login', params))
+  async login({ commit }: any, payload: any) {
+    commit('SET_ME', await Router.post({
+      name: 'auth.login',
+      payload,
+    }))
   },
 }

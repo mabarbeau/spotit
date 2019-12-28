@@ -26,13 +26,43 @@ class ParamNotFoundException extends BaseException {
   }
 }
 
+interface RouteParameters {
+  name: string
+  params?: any | undefined
+  payload?: any | undefined
+}
+
+type methods = 'get' | 'post' | 'put' | 'patch' | 'delete'
+
 export default class Router {
-  public static get(name: string, params: any = {}) {
-    [name, params] = this.url(name, params)
-    return Api.get(name, params)
+  public static get(params: RouteParameters) {
+    return this.method('get', params)
   }
 
-  protected static url(name: string, params: any = {}): any[] {
+  public static post(params: RouteParameters) {
+    return this.method('post', params)
+  }
+
+  public static put(params: RouteParameters) {
+    return this.method('put', params)
+  }
+
+  public static patch(params: RouteParameters) {
+    return this.method('patch', params)
+  }
+
+  public static delete(params: RouteParameters) {
+    return this.method('delete', params)
+  }
+
+  protected static method(
+    method: methods,
+    { name, params = undefined, payload = undefined }: RouteParameters
+  ) {
+    return Api[method](this.url(name, params), payload)
+  }
+
+  protected static url(name: string, params: any = undefined): string {
     let url = this.path(Routes, name.split('.'))
     if (url.includes(':')) {
       url = url
@@ -41,9 +71,7 @@ export default class Router {
           if (!segment.includes(':')) return segment
           const key = segment.substr(1)
           if (!(key in params)) {
-            throw new ParamNotFoundException(
-              `${key} not found`
-            )
+            throw new ParamNotFoundException(`${key} not found`)
           }
           segment = params[key]
           delete params[key]
@@ -51,7 +79,8 @@ export default class Router {
         })
         .join('/')
     }
-    return [url, params]
+    if (params && params.length) console.warn('Unnecessary parameters provided to router', params)
+    return url
   }
 
   protected static path(

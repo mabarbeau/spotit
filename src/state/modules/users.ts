@@ -37,6 +37,9 @@ export const mutations = {
 
 export const actions = {
   async loadUsers({ commit }: any) {
-    commit('SET_USERS', await Router.get('users.all', window.location.search))
+    commit('SET_USERS', await Router.get({
+      name: 'users.all',
+      payload: window.location.search,
+    }))
   },
 }

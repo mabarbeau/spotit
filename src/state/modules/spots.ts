@@ -33,9 +33,14 @@ export const mutations = {
 
 export const actions = {
   async loadSpots({ commit }: any) {
-    commit('SET_SPOTS', await Router.get('spots.all'))
+    commit('SET_SPOTS', await Router.get({
+      name: 'spots.all',
+    }))
   },
   async loadSpot({ commit }: any, slug: string) {
-    commit('SET_SPOT', await Router.get('spots.find', { slug }))
+    commit('SET_SPOT', await Router.get({
+      name: 'spots.find',
+      params: { slug },
+    }))
   },
 }
