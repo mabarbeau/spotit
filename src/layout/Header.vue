@@ -40,6 +40,12 @@ export default Vue.extend({
           },
         },
         {
+          label: 'Spots',
+          to: {
+            name: 'spots',
+          },
+        },
+        {
           label: 'Account',
           to: {
             name: 'account',
