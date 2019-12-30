@@ -3,6 +3,7 @@
     <h1> Users </h1>
     <base-pagination
       :name="$route.name"
+      :child-name="`${$route.name} show`"
       :list="users"
       text="name"
     />
@@ -22,16 +23,16 @@ export default Vue.extend({
     'users',
   ]),
   watch: {
-    $route() {
-      this.load()
+    async $route() {
+      await this.load()
     },
   },
-  mounted() {
-    this.load()
+  async mounted() {
+    await this.load()
   },
   methods: {
-    load() {
-      this.$store.dispatch('users/loadUsers')
+    async load() {
+      await this.$store.dispatch('users/loadUsers')
     },
   },
 })

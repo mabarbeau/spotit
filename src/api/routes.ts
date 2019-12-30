@@ -4,7 +4,7 @@ const routes: any = {
   },
   users: {
     all: '/users',
-    find: '/users/:id/:name',
+    find: '/users/:id',
   },
   spots: {
     all: '/spots',

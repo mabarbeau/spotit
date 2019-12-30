@@ -1,12 +1,12 @@
 import Api from '@/api'
 
-interface UserInterface {
+interface User {
   name: string
 }
 
-interface UserCollectionInterface {
+interface UserCollection {
   currentPage: number
-  data: UserInterface[]
+  data: User[]
   firstPageUrl: string
   from: number
   lastPage: number
@@ -19,19 +19,24 @@ interface UserCollectionInterface {
   total: number
 }
 
-interface UserStateInterface {
-  users: UserCollectionInterface|Object
+interface UserState {
+  user: User|Object
+  users: UserCollection|Object
 }
 
-export const state: UserStateInterface = {
+export const state: UserState = {
+  user: {},
   users: {},
 }
 
 export const getters = {}
 
 export const mutations = {
-  SET_USERS(state: UserStateInterface, users: UserCollectionInterface) {
+  SET_USERS(state: UserState, users: UserCollection) {
     state.users = users
+  },
+  SET_USER(state: UserState, user: User) {
+    state.user = user
   },
 }
 
@@ -40,6 +45,12 @@ export const actions = {
     commit('SET_USERS', await Api.get({
       name: 'users.all',
       payload: window.location.search,
+    }))
+  },
+  async loadUser({ commit }: any, id: string) {
+    commit('SET_USER', await Api.get({
+      name: 'users.find',
+      params: { id },
     }))
   },
 }
