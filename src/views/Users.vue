@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1> Users </h1>
-    <base-List
+    <base-pagination
       :name="$route.name"
       :list="users"
       text="name"
@@ -11,12 +11,12 @@
 <script lang="ts">
 import { mapState } from 'vuex'
 import Vue from 'vue'
-import BaseList from '@/components/BasePagination.vue'
+import BasePagination from '@/components/BasePagination.vue'
 
 export default Vue.extend({
   name: 'Users',
   components: {
-    BaseList,
+    BasePagination,
   },
   computed: mapState('users', [
     'users',
