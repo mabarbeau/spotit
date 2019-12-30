@@ -3,25 +3,17 @@ import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
 import { transform, isEmpty, camelCase } from 'lodash'
 import querystring from 'querystring'
 
-class BaseException extends Error implements App.Error {
+class RouteNotFoundException extends Error {
   constructor(message: string) {
-    super(`\n\n${message}`)
-    Object.setPrototypeOf(this, BaseException.prototype)
-  }
-
-  getMessage() {
-    return this.message
+    super(`\n\nRoute Not Found Exception: ${message}`)
+    Object.setPrototypeOf(this, RouteNotFoundException.prototype)
   }
 }
 
-class RouteNotFoundException extends BaseException {
+class ParamNotFoundException extends Error {
   constructor(message: string) {
-    super(`Route Not Found Exception: ${message}`)
-  }
-}
-class ParamNotFoundException extends BaseException {
-  constructor(message: string) {
-    super(`Parameter Not Found Exception: ${message}`)
+    super(`\n\nParameter Not Found Exception: ${message}`)
+    Object.setPrototypeOf(this, RouteNotFoundException.prototype)
   }
 }
 
@@ -30,16 +22,12 @@ export default class Router {
 
   protected axios: AxiosInstance
 
-  protected errorHandler: App.ErrorHandler
-
   constructor(
     routes: any,
     config: AxiosRequestConfig | undefined = undefined,
-    errorHandler: App.ErrorHandler
   ) {
     this.routes = routes
     this.axios = axios.create(config)
-    this.errorHandler = errorHandler
   }
 
   public async get({
@@ -51,15 +39,12 @@ export default class Router {
     params?: any | undefined
     payload?: querystring.ParsedUrlQueryInput | string
   }) {
-    try {
-      const query = typeof payload === 'string'
-        ? payload
-        : `?${querystring.stringify(payload)}`
-      return this.return(this.axios.get(this.url(name, params) + query))
-    } catch (error) {
-      this.handleError(error)
-      return undefined
-    }
+    const query = typeof payload === 'string'
+      ? payload
+      : `?${querystring.stringify(payload)}`
+    return this.return(
+      this.axios.get(this.url(name, params) + query)
+    )
   }
 
   public async post({
@@ -67,12 +52,9 @@ export default class Router {
     params = undefined,
     payload = undefined,
   }: Routing.RouteParameters) {
-    try {
-      return this.return(this.axios.post(this.url(name, params), payload))
-    } catch (error) {
-      this.handleError(error)
-      return undefined
-    }
+    return this.return(
+      this.axios.post(this.url(name, params), payload)
+    )
   }
 
   public async put({
@@ -80,12 +62,9 @@ export default class Router {
     params = undefined,
     payload = undefined,
   }: Routing.RouteParameters) {
-    try {
-      return this.return(this.axios.put(this.url(name, params), payload))
-    } catch (error) {
-      this.handleError(error)
-      return undefined
-    }
+    return this.return(
+      this.axios.put(this.url(name, params), payload)
+    )
   }
 
   public async patch({
@@ -93,14 +72,9 @@ export default class Router {
     params = undefined,
     payload = undefined,
   }: Routing.RouteParameters) {
-    try {
-      return this.return(
-        this.axios.patch(this.url(name, params), payload)
-      )
-    } catch (error) {
-      this.handleError(error)
-      return undefined
-    }
+    return this.return(
+      this.axios.patch(this.url(name, params), payload)
+    )
   }
 
   public async delete({
@@ -110,14 +84,9 @@ export default class Router {
     name: string
     params?: any | undefined
   }) {
-    try {
-      return this.return(
-        this.axios.delete(this.url(name, params))
-      )
-    } catch (error) {
-      this.handleError(error)
-      return undefined
-    }
+    return this.return(
+      this.axios.delete(this.url(name, params))
+    )
   }
 
   protected url(name: string, params: any = undefined): string {
@@ -157,9 +126,7 @@ export default class Router {
   }
 
   protected async return(response: Promise<AxiosResponse>) {
-    return response
-      .then((reply) => this.camelCaseKeys(reply.data))
-      .catch((error) => this.handleError(error))
+    return response.then((reply) => this.camelCaseKeys(reply.data))
   }
 
   protected camelCaseKeys(object: any): any {
@@ -172,9 +139,5 @@ export default class Router {
         result[camelCase(key)] = value
       }
     )
-  }
-
-  protected handleError(error: App.Error) {
-    this.errorHandler.handle(error)
   }
 }

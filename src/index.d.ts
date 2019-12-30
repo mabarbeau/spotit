@@ -3,10 +3,6 @@
 declare module 'googlemaps'
 
 declare namespace App {
-  interface Error {
-    message: string
-    getMessage(): string
-  }
   interface ErrorHandler {
     messages: object
     handle(error: Error): string
