@@ -7,7 +7,8 @@ import './registerServiceWorker'
 import './styles/main.scss'
 import {} from 'googlemaps'
 
-window.onerror = function(message, source, lineno, colno, error) {
+// eslint-disable-next-line func-names
+window.onerror = function (message, source, lineno, colno, error) {
   logger.error({ message, source, lineno, colno, error })
 }
 
