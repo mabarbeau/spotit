@@ -51,6 +51,12 @@ export default Vue.extend({
             name: 'account',
           },
         },
+        {
+          label: 'Users',
+          to: {
+            name: 'users',
+          },
+        },
       ],
     }
   },
