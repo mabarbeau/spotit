@@ -13,13 +13,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import BaseMap from '@/components/BaseMap.vue'
 
 export default Vue.extend({
   name: 'SpotsShow',
-  components: {
-    BaseMap,
-  },
   props: {
     slug: {
       type: String,

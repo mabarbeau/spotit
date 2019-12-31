@@ -13,7 +13,6 @@ function instanceOfLatLngLiteral(
 }
 
 export default Vue.extend({
-  name: 'BaseMap',
   props: {
     markers: {
       type: Array,

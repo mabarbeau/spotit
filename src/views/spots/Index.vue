@@ -23,15 +23,9 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import BasePagination from '@/components/BasePagination.vue'
-import BaseMap from '@/components/BaseMap.vue'
 
 export default Vue.extend({
   name: 'SpotsIndex',
-  components: {
-    BasePagination,
-    BaseMap,
-  },
   computed: {
     ...mapState('spots', [
       'spots',

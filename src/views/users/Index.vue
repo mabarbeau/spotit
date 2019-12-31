@@ -12,13 +12,9 @@
 <script lang="ts">
 import { mapState } from 'vuex'
 import Vue from 'vue'
-import BasePagination from '@/components/BasePagination.vue'
 
 export default Vue.extend({
   name: 'Users',
-  components: {
-    BasePagination,
-  },
   computed: mapState('users', [
     'users',
   ]),
