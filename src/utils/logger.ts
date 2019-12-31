@@ -11,11 +11,13 @@ const axiosInstance = axios.create({
 
 export default class Logger {
   public static async info(data: any) {
-    axiosInstance.post('/log/info', { error: JSON.stringify(data) })
+    axiosInstance.post('/log/info', { info: JSON.stringify(data) })
   }
+
   public static async warning(data: any) {
-    axiosInstance.post('/log/warning', { error: JSON.stringify(data) })
+    axiosInstance.post('/log/warning', { warning: JSON.stringify(data) })
   }
+
   public static async error(data: any) {
     axiosInstance.post('/log/error', { error: JSON.stringify(data) })
   }
