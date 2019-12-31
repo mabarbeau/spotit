@@ -13,7 +13,7 @@
       />
     </section>
     <section>
-      <BaseMap
+      <base-map
         :markers="markers"
       />
     </section>

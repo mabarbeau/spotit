@@ -6,7 +6,7 @@
     >
       Back
     </router-link>
-    <BaseMap :markers="markers" />
+    <base-map :markers="markers" />
   </div>
 </template>
 
