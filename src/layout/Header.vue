@@ -14,14 +14,18 @@
       >
     </router-link>
     <nav class="inline-flex items-center">
-      <router-link
-        v-for="(link, index) in navigation"
-        :key="index"
-        class="pl-5 text-gray-100 hover:text-gray-300"
-        :to="link.to"
-      >
-        {{ link.label }}
-      </router-link>
+      <base-list
+        v-model="navigation"
+        :options="{
+          tag: 'ol',
+        }"
+        :outer-attrs="{
+          class: 'inline-block',
+        }"
+        :inner-attrs="{
+          class: 'pl-5 text-gray-100 hover:text-gray-300',
+        }"
+      />
     </nav>
   </div>
 </template>
