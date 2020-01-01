@@ -41,16 +41,24 @@ export const mutations = {
 }
 
 export const actions = {
-  async loadUsers({ commit }: any) {
-    commit('SET_USERS', await Api.get({
+  async loadUsers({ commit, dispatch }: any) {
+    Api.get({
       name: 'users.all',
       payload: window.location.search,
-    }))
+    }).then((users) => {
+      commit('SET_USERS', users)
+    }).catch((error: Error) => {
+      dispatch('errors/set', error, { root: true })
+    })
   },
-  async loadUser({ commit }: any, id: string) {
-    commit('SET_USER', await Api.get({
+  async loadUser({ commit, dispatch }: any, id: string) {
+    Api.get({
       name: 'users.find',
       params: { id },
-    }))
+    }).then((user) => {
+      commit('SET_USER', user)
+    }).catch((error: Error) => {
+      dispatch('errors/set', error, { root: true })
+    })
   },
 }
