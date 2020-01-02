@@ -21,6 +21,7 @@ module.exports = {
     quotes: ['error', 'single'],
     semi: ['error', 'never'],
     'comma-dangle': ['error', 'always-multiline'],
+    'import/extensions': ['error', 'never', { svg: 'always', vue: 'always' }],
     'import/no-unresolved': 0,
     'import/no-extraneous-dependencies': 0,
     'arrow-parens': ['error', 'always'],
