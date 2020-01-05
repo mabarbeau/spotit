@@ -4,6 +4,10 @@
     "prettier.packageManager": "yarn",
     "tslint.packageManager": "yarn",
     "cSpell.words": [
-        "googlemaps"
+        "Interop",
+        "esnext",
+        "gmaps",
+        "googlemaps",
+        "scripthost"
     ]
 }
