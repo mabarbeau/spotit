@@ -22,10 +22,7 @@ export default class Router {
 
   protected axios: AxiosInstance
 
-  constructor(
-    routes: any,
-    config: AxiosRequestConfig | undefined = undefined,
-  ) {
+  constructor(routes: any, config: AxiosRequestConfig | undefined = undefined) {
     this.routes = routes
     this.axios = axios.create(config)
   }
@@ -39,12 +36,11 @@ export default class Router {
     params?: any | undefined
     payload?: querystring.ParsedUrlQueryInput | string
   }) {
-    const query = typeof payload === 'string'
-      ? payload
-      : `?${querystring.stringify(payload)}`
-    return this.return(
-      this.axios.get(this.url(name, params) + query)
-    )
+    const query =
+      typeof payload === 'string'
+        ? payload
+        : `?${querystring.stringify(payload)}`
+    return this.return(this.axios.get(this.url(name, params) + query))
   }
 
   public async post({
@@ -52,9 +48,7 @@ export default class Router {
     params = undefined,
     payload = undefined,
   }: Routing.RouteParameters) {
-    return this.return(
-      this.axios.post(this.url(name, params), payload)
-    )
+    return this.return(this.axios.post(this.url(name, params), payload))
   }
 
   public async put({
@@ -62,9 +56,7 @@ export default class Router {
     params = undefined,
     payload = undefined,
   }: Routing.RouteParameters) {
-    return this.return(
-      this.axios.put(this.url(name, params), payload)
-    )
+    return this.return(this.axios.put(this.url(name, params), payload))
   }
 
   public async patch({
@@ -72,9 +64,7 @@ export default class Router {
     params = undefined,
     payload = undefined,
   }: Routing.RouteParameters) {
-    return this.return(
-      this.axios.patch(this.url(name, params), payload)
-    )
+    return this.return(this.axios.patch(this.url(name, params), payload))
   }
 
   public async delete({
@@ -84,9 +74,7 @@ export default class Router {
     name: string
     params?: any | undefined
   }) {
-    return this.return(
-      this.axios.delete(this.url(name, params))
-    )
+    return this.return(this.axios.delete(this.url(name, params)))
   }
 
   protected url(name: string, params: any = undefined): string {
@@ -106,18 +94,14 @@ export default class Router {
         })
         .join('/')
     }
-    if (params && params.length) console.warn('Unnecessary parameters provided to router', params)
+    if (params && params.length)
+      console.warn('Unnecessary parameters provided to router', params)
     return url
   }
 
-  protected path(
-    routes: any,
-    [next, ...rest]: string[]
-  ): string {
+  protected path(routes: any, [next, ...rest]: string[]): string {
     if (!(next in routes)) {
-      throw new RouteNotFoundException(
-        `'${next}' not found in api routes`
-      )
+      throw new RouteNotFoundException(`'${next}' not found in api routes`)
     }
     if (!rest.length) {
       return routes[next]
@@ -130,14 +114,11 @@ export default class Router {
   }
 
   protected camelCaseKeys(object: any): any {
-    return transform(
-      object,
-      (result: any, value: any, key: string) => {
-        if (typeof value === 'object' && !isEmpty(value)) {
-          value = this.camelCaseKeys(value)
-        }
-        result[camelCase(key)] = value
+    return transform(object, (result: any, value: any, key: string) => {
+      if (typeof value === 'object' && !isEmpty(value)) {
+        value = this.camelCaseKeys(value)
       }
-    )
+      result[camelCase(key)] = value
+    })
   }
 }

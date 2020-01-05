@@ -1,9 +1,7 @@
 <template>
   <div>
     <h1> {{ spot.title }} </h1>
-    <router-link
-      :to="{name: 'spots'}"
-    >
+    <router-link :to="{ name: 'spots' }">
       Back
     </router-link>
     <base-map :markers="markers" />
@@ -23,9 +21,7 @@ export default Vue.extend({
     },
   },
   computed: {
-    ...mapState('spots', [
-      'spot',
-    ]),
+    ...mapState('spots', ['spot']),
     markers(): google.maps.LatLngLiteral[] {
       return [
         {

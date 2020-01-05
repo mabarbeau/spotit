@@ -10,12 +10,9 @@
       <p v-if="error.response.data.exception">
         {{ error.response.data.exception }}
       </p>
-      <p v-if="error.response.data.trace">
+      <div v-if="error.response.data.trace">
         <ul>
-          <li
-            v-for="(trace, index) in error.response.data.trace"
-            :key="index"
-          >
+          <li v-for="(trace, index) in error.response.data.trace" :key="index">
             <ul>
               <li>
                 {{ trace.file }}
@@ -26,7 +23,7 @@
             </ul>
           </li>
         </ul>
-      </p>
+      </div>
     </div>
   </div>
 </template>
@@ -37,9 +34,7 @@ import { mapState } from 'vuex'
 
 export default Vue.extend({
   computed: {
-    ...mapState('errors', [
-      'error',
-    ]),
+    ...mapState('errors', ['error']),
   },
 })
 </script>

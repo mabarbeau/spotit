@@ -1,4 +1,3 @@
-
 import Api from '@/api'
 
 interface UserInterface {
@@ -6,7 +5,7 @@ interface UserInterface {
 }
 
 interface AuthStateInterface {
-  me: UserInterface|Object
+  me: UserInterface | Object
 }
 
 export const state: AuthStateInterface = {
@@ -23,9 +22,12 @@ export const mutations = {
 
 export const actions = {
   async login({ commit }: any, payload: any) {
-    commit('SET_ME', await Api.post({
-      name: 'auth.login',
-      payload,
-    }))
+    commit(
+      'SET_ME',
+      await Api.post({
+        name: 'auth.login',
+        payload,
+      })
+    )
   },
 }

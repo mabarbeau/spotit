@@ -3,12 +3,12 @@
     <li
       v-for="(item, index) in value"
       :key="index"
-      v-bind="{...outerAttrs, ...item.outer || {} }"
+      v-bind="{ ...outerAttrs, ...(item.outer || {}) }"
     >
       <router-link
         v-if="item.to"
         :to="item.to"
-        v-bind="{...innerAttrs, ...item.inner || {} }"
+        v-bind="{ ...innerAttrs, ...(item.inner || {}) }"
       >
         {{ item.label }}
       </router-link>
@@ -34,11 +34,15 @@ export default Vue.extend({
     },
     outerAttrs: {
       type: Object,
-      default() { return {} },
+      default() {
+        return {}
+      },
     },
     innerAttrs: {
       type: Object,
-      default() { return {} },
+      default() {
+        return {}
+      },
     },
   },
   computed: {

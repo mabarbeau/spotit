@@ -1,17 +1,7 @@
 <template>
-  <div
-    id="nav"
-    class="bg-gray-800 px-5 py-3 flex justify-between"
-  >
-    <router-link
-      class=""
-      :to="{name: 'home'}"
-    >
-      <img
-        alt="Spoit logo"
-        src="@/assets/logo.png"
-        class="h-8"
-      >
+  <div id="nav" class="bg-gray-800 px-5 py-3 flex justify-between">
+    <router-link class="" :to="{ name: 'home' }">
+      <img alt="Spoit logo" src="@/assets/logo.png" class="h-8" />
     </router-link>
     <nav class="inline-flex items-center">
       <base-list

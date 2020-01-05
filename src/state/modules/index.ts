@@ -20,7 +20,7 @@ function getNamespace(subtree: any, path: any[]): any {
   return getNamespace(subtree.modules[namespace], path)
 }
 
-(function updateModules() {
+;(function updateModules() {
   // Allow us to dynamically require all Vuex module files.
   // https://webpack.js.org/guides/dependency-management/#require-context
   const requireModule = require.context(
@@ -34,7 +34,8 @@ function getNamespace(subtree: any, path: any[]): any {
 
   // For every Vuex module...
   requireModule.keys().forEach((fileName) => {
-    const moduleDefinition = requireModule(fileName).default || requireModule(fileName)
+    const moduleDefinition =
+      requireModule(fileName).default || requireModule(fileName)
 
     // Skip the module during hot reload if it refers to the
     // same module definition as the one we have cached.
@@ -76,6 +77,6 @@ function getNamespace(subtree: any, path: any[]): any {
       require('../store').default.hotUpdate({ modules: storeData.modules })
     })
   }
-}())
+})()
 
 export default storeData.modules

@@ -11,17 +11,17 @@ interface UserCollection {
   from: number
   lastPage: number
   lastPageUrl: string
-  nextPageUrl: string|null
+  nextPageUrl: string | null
   path: string
   perPage: number
-  prevPageUrl: string|null
+  prevPageUrl: string | null
   to: string
   total: number
 }
 
 interface UserState {
-  user: User|Object
-  users: UserCollection|Object
+  user: User | Object
+  users: UserCollection | Object
 }
 
 export const state: UserState = {
@@ -45,20 +45,24 @@ export const actions = {
     Api.get({
       name: 'users.all',
       payload: window.location.search,
-    }).then((users) => {
-      commit('SET_USERS', users)
-    }).catch((error: Error) => {
-      dispatch('errors/set', error, { root: true })
     })
+      .then((users) => {
+        commit('SET_USERS', users)
+      })
+      .catch((error: Error) => {
+        dispatch('errors/set', error, { root: true })
+      })
   },
   async loadUser({ commit, dispatch }: any, id: string) {
     Api.get({
       name: 'users.find',
       params: { id },
-    }).then((user) => {
-      commit('SET_USER', user)
-    }).catch((error: Error) => {
-      dispatch('errors/set', error, { root: true })
     })
+      .then((user) => {
+        commit('SET_USER', user)
+      })
+      .catch((error: Error) => {
+        dispatch('errors/set', error, { root: true })
+      })
   },
 }

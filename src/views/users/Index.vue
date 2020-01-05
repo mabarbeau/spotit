@@ -15,9 +15,7 @@ import Vue from 'vue'
 
 export default Vue.extend({
   name: 'Users',
-  computed: mapState('users', [
-    'users',
-  ]),
+  computed: mapState('users', ['users']),
   watch: {
     async $route() {
       await this.load()

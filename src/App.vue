@@ -1,8 +1,5 @@
 <template>
-  <div
-    id="app"
-    class="min-h-screen flex flex-col"
-  >
+  <div id="app" class="min-h-screen flex flex-col">
     <app-header />
     <main class="flex-1 relative">
       <router-view v-if="!error" />
@@ -27,9 +24,7 @@ export default Vue.extend({
     AppError,
   },
   computed: {
-    ...mapState('errors', [
-      'error',
-    ]),
+    ...mapState('errors', ['error']),
   },
 })
 </script>

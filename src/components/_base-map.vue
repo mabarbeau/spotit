@@ -16,7 +16,8 @@ export default Vue.extend({
   props: {
     markers: {
       type: Array,
-      validator: (array) => array.every((item) => instanceOfLatLngLiteral(item)),
+      validator: (array) =>
+        array.every((item) => instanceOfLatLngLiteral(item)),
       required: true,
     },
   },

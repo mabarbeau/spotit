@@ -13,9 +13,7 @@
       />
     </section>
     <section>
-      <base-map
-        :markers="markers"
-      />
+      <base-map :markers="markers" />
     </section>
   </div>
 </template>
@@ -27,9 +25,7 @@ import { mapState } from 'vuex'
 export default Vue.extend({
   name: 'SpotsIndex',
   computed: {
-    ...mapState('spots', [
-      'spots',
-    ]),
+    ...mapState('spots', ['spots']),
     markers(): google.maps.LatLngLiteral[] {
       return [
         {
@@ -63,8 +59,8 @@ export default Vue.extend({
 })
 </script>
 <style scoped>
-  section {
-    width: 50%;
-    float: right;
-  }
+section {
+  width: 50%;
+  float: right;
+}
 </style>

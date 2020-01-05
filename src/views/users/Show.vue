@@ -16,9 +16,7 @@ export default Vue.extend({
       required: true,
     },
   },
-  computed: mapState('users', [
-    'user',
-  ]),
+  computed: mapState('users', ['user']),
   beforeRouteEnter(to: any, from: any, next: any) {
     next((vm: any) => {
       vm.$store.dispatch('users/loadUser', vm.id).then(() => {

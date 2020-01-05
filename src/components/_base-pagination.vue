@@ -1,16 +1,8 @@
 <template>
   <div>
-    <ol
-      :start="list.from"
-    >
-      <li
-        v-for="(item, index) in list.data"
-        :key="index"
-      >
-        <router-link
-          v-if="childName"
-          :to="{ name: childName, params: item}"
-        >
+    <ol :start="list.from">
+      <li v-for="(item, index) in list.data" :key="index">
+        <router-link v-if="childName" :to="{ name: childName, params: item }">
           {{ item[text] }}
         </router-link>
         <span v-else>
@@ -20,14 +12,14 @@
     </ol>
     <router-link
       v-if="list.prevPageUrl"
-      :to="{ name, query: { page: list.currentPage - 1 }}"
+      :to="{ name, query: { page: list.currentPage - 1 } }"
     >
       &lt;
     </router-link>
     Page {{ list.currentPage }} of
     <router-link
       v-if="list.lastPage !== list.currentPage"
-      :to="{ name, query: { page: list.lastPage }}"
+      :to="{ name, query: { page: list.lastPage } }"
     >
       {{ list.lastPage }}
     </router-link>
@@ -36,7 +28,7 @@
     </span>
     <router-link
       v-if="list.nextPageUrl"
-      :to="{ name, query: { page: list.currentPage + 1 }}"
+      :to="{ name, query: { page: list.currentPage + 1 } }"
     >
       &gt;
     </router-link>
@@ -68,7 +60,7 @@ export default Vue.extend({
 </script>
 
 <style>
-  a {
-    color: blue!important
-  }
+a {
+  color: blue !important;
+}
 </style>

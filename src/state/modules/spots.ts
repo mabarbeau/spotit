@@ -1,15 +1,14 @@
 import Api from '@/api'
 
-interface SpotsInterface {
-}
+interface SpotsInterface {}
 
 interface SpotsCollectionInterface {
   data: SpotsInterface[]
 }
 
 interface SpotsStateInterface {
-  spot: SpotsInterface|Object
-  spots: SpotsCollectionInterface|Object
+  spot: SpotsInterface | Object
+  spots: SpotsCollectionInterface | Object
 }
 
 export const state: SpotsStateInterface = {
@@ -20,10 +19,7 @@ export const state: SpotsStateInterface = {
 export const getters = {}
 
 export const mutations = {
-  SET_SPOTS(
-    state: SpotsStateInterface,
-    spots: SpotsCollectionInterface
-  ) {
+  SET_SPOTS(state: SpotsStateInterface, spots: SpotsCollectionInterface) {
     state.spots = spots
   },
   SET_SPOT(state: SpotsStateInterface, spot: SpotsInterface) {
@@ -33,15 +29,21 @@ export const mutations = {
 
 export const actions = {
   async loadSpots({ commit }: any) {
-    commit('SET_SPOTS', await Api.get({
-      name: 'spots.all',
-      payload: window.location.search,
-    }))
+    commit(
+      'SET_SPOTS',
+      await Api.get({
+        name: 'spots.all',
+        payload: window.location.search,
+      })
+    )
   },
   async loadSpot({ commit }: any, slug: string) {
-    commit('SET_SPOT', await Api.get({
-      name: 'spots.find',
-      params: { slug },
-    }))
+    commit(
+      'SET_SPOT',
+      await Api.get({
+        name: 'spots.find',
+        params: { slug },
+      })
+    )
   },
 }
