@@ -26,5 +26,10 @@ export default Vue.extend({
   computed: {
     ...mapState('errors', ['error']),
   },
+  watch: {
+    $route() {
+      this.$store.dispatch('errors/clear')
+    },
+  },
 })
 </script>

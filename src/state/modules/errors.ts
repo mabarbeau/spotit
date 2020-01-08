@@ -18,4 +18,7 @@ export const actions = {
   set({ commit }: any, error: Error) {
     commit('SET_ERROR', error)
   },
+  clear({ commit }: any, error: Error) {
+    commit('SET_ERROR', undefined)
+  },
 }
