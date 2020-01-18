@@ -1,7 +1,7 @@
-// eslint-disable-next-line no-unused-vars
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
 import { transform, isEmpty, camelCase } from 'lodash'
 import querystring from 'querystring'
+import { GetParameters, RouteParameters } from './index.d'
 
 class RouteNotFoundException extends Error {
   constructor(message: string) {
@@ -27,15 +27,7 @@ export default class Router {
     this.axios = axios.create(config)
   }
 
-  public async get({
-    name,
-    params = undefined,
-    payload = '',
-  }: {
-    name: string
-    params?: any | undefined
-    payload?: querystring.ParsedUrlQueryInput | string
-  }) {
+  public async get({ name, params = undefined, payload = '' }: GetParameters) {
     const query =
       typeof payload === 'string'
         ? payload
@@ -47,7 +39,7 @@ export default class Router {
     name,
     params = undefined,
     payload = undefined,
-  }: Routing.RouteParameters) {
+  }: RouteParameters) {
     return this.return(this.axios.post(this.url(name, params), payload))
   }
 
@@ -55,7 +47,7 @@ export default class Router {
     name,
     params = undefined,
     payload = undefined,
-  }: Routing.RouteParameters) {
+  }: RouteParameters) {
     return this.return(this.axios.put(this.url(name, params), payload))
   }
 
@@ -63,7 +55,7 @@ export default class Router {
     name,
     params = undefined,
     payload = undefined,
-  }: Routing.RouteParameters) {
+  }: RouteParameters) {
     return this.return(this.axios.patch(this.url(name, params), payload))
   }
 
