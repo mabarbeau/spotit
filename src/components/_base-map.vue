@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="BaseMap">
     <div v-if="error">
       {{ error }}
     </div>
@@ -21,9 +21,11 @@ export default Vue.extend({
   props: {
     markers: {
       type: Array,
+      default() {
+        return []
+      },
       validator: (array) =>
         array.every((item) => instanceOfLatLngLiteral(item)),
-      required: true,
     },
   },
   data(): {
