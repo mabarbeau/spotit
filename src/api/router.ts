@@ -66,14 +66,7 @@ export default class Router {
     return this.return(this.axios.patch(this.url(name, params), payload))
   }
 
-  public async delete(
-    name: string,
-    {
-      params = undefined,
-    }: {
-      params?: any | undefined
-    }
-  ) {
+  public async delete(name: string, params?: any) {
     return this.return(this.axios.delete(this.url(name, params)))
   }
 
