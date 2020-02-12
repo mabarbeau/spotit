@@ -20,13 +20,13 @@ interface UserCollection {
 }
 
 interface UserState {
-  user: User | Object
-  users: UserCollection | Object
+  user: User | undefined
+  users: UserCollection | undefined
 }
 
 export const state: UserState = {
-  user: {},
-  users: {},
+  user: undefined,
+  users: undefined,
 }
 
 export const getters = {}
