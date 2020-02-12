@@ -1,7 +1,11 @@
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
 import { transform, isEmpty, camelCase } from 'lodash'
 import querystring from 'querystring'
-import { GetParameters, RouteParameters } from './index.d'
+
+interface RouteParameters<payload = object> {
+  params?: object | undefined
+  payload?: payload | string | undefined
+}
 
 class RouteNotFoundException extends Error {
   constructor(message: string) {
@@ -29,7 +33,10 @@ export default class Router {
 
   public async get(
     name: string,
-    { params = undefined, payload = '' }: GetParameters
+    {
+      params = undefined,
+      payload = '',
+    }: RouteParameters<querystring.ParsedUrlQueryInput>
   ) {
     const query =
       typeof payload === 'string'
