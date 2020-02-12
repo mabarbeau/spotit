@@ -26,8 +26,7 @@ export const actions = {
     { commit, dispatch }: any,
     payload: ActionContext<AuthModule, any>
   ) {
-    await Api.post({
-      name: 'auth.login',
+    await Api.post('auth.login', {
       payload,
     })
       .then((user) => {

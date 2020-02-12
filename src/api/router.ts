@@ -27,7 +27,10 @@ export default class Router {
     this.axios = axios.create(config)
   }
 
-  public async get({ name, params = undefined, payload = '' }: GetParameters) {
+  public async get(
+    name: string,
+    { params = undefined, payload = '' }: GetParameters
+  ) {
     const query =
       typeof payload === 'string'
         ? payload
@@ -35,37 +38,35 @@ export default class Router {
     return this.return(this.axios.get(this.url(name, params) + query))
   }
 
-  public async post({
-    name,
-    params = undefined,
-    payload = undefined,
-  }: RouteParameters) {
+  public async post(
+    name: string,
+    { params = undefined, payload = undefined }: RouteParameters
+  ) {
     return this.return(this.axios.post(this.url(name, params), payload))
   }
 
-  public async put({
-    name,
-    params = undefined,
-    payload = undefined,
-  }: RouteParameters) {
+  public async put(
+    name: string,
+    { params = undefined, payload = undefined }: RouteParameters
+  ) {
     return this.return(this.axios.put(this.url(name, params), payload))
   }
 
-  public async patch({
-    name,
-    params = undefined,
-    payload = undefined,
-  }: RouteParameters) {
+  public async patch(
+    name: string,
+    { params = undefined, payload = undefined }: RouteParameters
+  ) {
     return this.return(this.axios.patch(this.url(name, params), payload))
   }
 
-  public async delete({
-    name,
-    params = undefined,
-  }: {
-    name: string
-    params?: any | undefined
-  }) {
+  public async delete(
+    name: string,
+    {
+      params = undefined,
+    }: {
+      params?: any | undefined
+    }
+  ) {
     return this.return(this.axios.delete(this.url(name, params)))
   }
 

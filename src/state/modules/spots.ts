@@ -30,8 +30,7 @@ export const mutations = {
 
 export const actions = {
   async loadSpots({ commit, dispatch }: ActionContext<SpotsModule, any>) {
-    await Api.get({
-      name: 'spots.all',
+    await Api.get('spots.all', {
       payload: window.location.search,
     })
       .then((spots) => {
@@ -45,8 +44,7 @@ export const actions = {
     { commit, dispatch }: ActionContext<SpotsModule, any>,
     slug: string
   ) {
-    await Api.get({
-      name: 'spots.find',
+    await Api.get('spots.find', {
       params: { slug },
     })
       .then((spot) => {

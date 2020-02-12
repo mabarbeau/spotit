@@ -42,8 +42,7 @@ export const mutations = {
 
 export const actions = {
   async loadUsers({ commit, dispatch }: any) {
-    Api.get({
-      name: 'users.all',
+    Api.get('users.all', {
       payload: window.location.search,
     })
       .then((users) => {
@@ -54,8 +53,7 @@ export const actions = {
       })
   },
   async loadUser({ commit, dispatch }: any, id: string) {
-    Api.get({
-      name: 'users.find',
+    Api.get('users.find', {
       params: { id },
     })
       .then((user) => {
