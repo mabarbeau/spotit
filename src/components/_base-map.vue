@@ -23,7 +23,6 @@ export default Vue.extend({
   },
   data(): {
     map: google.maps.Map | undefined
-    // eslint-disable-next-line indent
   } {
     return {
       map: undefined,
@@ -37,7 +36,6 @@ export default Vue.extend({
       if (this.map && this.markers) {
         this.markers.forEach((marker) => {
           bounds.extend(marker)
-          // eslint-disable-next-line no-new
           new google.maps.Marker({
             position: marker,
             map: this.map,
