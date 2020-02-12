@@ -1,5 +1,10 @@
 <template>
-  <div class="BaseMap" />
+  <div>
+    <div v-if="error">
+      {{ error }}
+    </div>
+    <div v-else class="BaseMap" />
+  </div>
 </template>
 
 <script lang="ts">
@@ -22,9 +27,11 @@ export default Vue.extend({
     },
   },
   data(): {
+    error: string | undefined
     map: google.maps.Map | undefined
   } {
     return {
+      error: undefined,
       map: undefined,
     }
   },
@@ -46,7 +53,8 @@ export default Vue.extend({
         this.map.panToBounds(bounds)
       }
     } catch (error) {
-      console.error(error)
+      if (error instanceof Error) this.error = error.toString()
+      else this.error = 'Error loading map'
     }
   },
 })
