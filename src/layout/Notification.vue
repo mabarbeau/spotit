@@ -1,10 +1,12 @@
 <template>
-  <div>
-    {{ message }}
-    <div class="flex space-between">
-      <button v-if="cancelable" class="no" @click="canceled">
-        Cancel
-      </button>
+  <div
+    :class="$style.notification"
+    class="bg-white border border-gray-300 border-radius-sm shadow-md p-2"
+  >
+    <div class="flex space-between relative">
+      <p>
+        {{ message }}
+      </p>
       <button class="yes" @click="confirmed">
         Ok
       </button>
@@ -18,10 +20,17 @@ import { mapState, mapActions } from 'vuex'
 
 export default Vue.extend({
   computed: {
-    ...mapState('notification', ['message', 'cancelable']),
+    ...mapState('notification', ['message']),
   },
   methods: {
-    ...mapActions('notification', ['confirmed', 'canceled']),
+    ...mapActions('notification', ['confirmed']),
   },
 })
 </script>
+<style module>
+.notification {
+  position: absolute;
+  bottom: 20px;
+  left: 20px;
+}
+</style>

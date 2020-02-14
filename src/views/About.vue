@@ -23,19 +23,16 @@ export default Vue.extend({
   },
   methods: {
     async alert(message: string) {
-      await this.$store.dispatch('notification/alert', message).then(() => {
-        this.result = 'success'
-      })
+      await this.$store
+        .dispatch('notification/alert', message)
+        .then((result) => {
+          this.result = result
+        })
     },
     async confirm(message: string) {
-      await this.$store
-        .dispatch('notification/confirm', message)
-        .then(() => {
-          this.result = 'success'
-        })
-        .catch(() => {
-          this.result = 'canceled'
-        })
+      await this.$store.dispatch('confirm/confirm', message).then((result) => {
+        this.result = result
+      })
     },
   },
 })
