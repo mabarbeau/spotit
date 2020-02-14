@@ -1,6 +1,6 @@
 interface ConfirmState {
   message: string | undefined
-  resolve: (() => void) | undefined
+  resolve: (() => boolean) | undefined
 }
 
 export const state: ConfirmState = {
@@ -11,6 +11,9 @@ export const state: ConfirmState = {
 export const getters = {}
 
 export const mutations = {
+  SET_RESOLVE(state: ConfirmState, resolve: () => boolean) {
+    state.resolve = resolve
+  },
   SET_MESSAGE(state: ConfirmState, message: string) {
     state.message = message
   },
@@ -23,7 +26,7 @@ export const actions = {
   async confirm({ state, commit }: any, message: string) {
     commit('SET_MESSAGE', message)
     return new Promise((resolve) => {
-      state.resolve = resolve
+      commit('SET_RESOLVE', resolve)
     })
   },
   async confirmed({ state, commit }: any, message: string) {

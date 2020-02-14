@@ -1,10 +1,9 @@
 <template>
-  <div :class="$style.background">
+  <div :class="[$style.confirm, $style.fullScreen]">
     <div
-      class="m-5 bg-white border border-gray-300 border-radius-sm shadow-md p-2 max-w-md"
+      class="m-5 bg-white border border-gray-300 border-radius-sm shadow-md p-2 max-w-md z-10"
     >
       <p>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Tempore laborum, obcaecati qui facilis ab hic quod dolores eum. Velit autem aut nihil non facere quae iusto, nostrum quisquam laudantium quia.
         {{ message }}
       </p>
       <div class="w-full flex justify-between mt-5">
@@ -16,6 +15,7 @@
         </button>
       </div>
     </div>
+    <div :class="[$style.background, $style.fullScreen]" />
   </div>
 </template>
 
@@ -27,21 +27,42 @@ export default Vue.extend({
   computed: {
     ...mapState('confirm', ['message']),
   },
+  mounted() {
+    setTimeout(() => {
+      window.addEventListener('keyup', this.keyup)
+    }, 1000)
+  },
+  destroyed() {
+    window.removeEventListener('keyup', this.keyup)
+  },
   methods: {
     ...mapActions('confirm', ['confirmed', 'canceled']),
+    keyup(event: KeyboardEvent) {
+      if (event.code === 'Space' || event.code === 'Enter') {
+        this.confirmed()
+      }
+      if (event.code === 'Escape') {
+        this.canceled()
+      }
+    },
   },
 })
 </script>
 <style module>
-.background {
-  position: fixed;
-  display: flex;
-  justify-content: center;
-  align-items: center;
+.fullScreen {
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
-  background-color: rgba(0, 0, 0, 0.75);
+}
+.confirm {
+  position: fixed;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.background {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.5);
 }
 </style>

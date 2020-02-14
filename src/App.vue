@@ -1,13 +1,15 @@
 <template>
-  <div id="app" class="min-h-screen flex flex-col">
-    <app-header />
-    <main class="flex-1 relative">
-      <app-confirm v-if="confirm" />
-      <router-view v-if="!error" />
-      <app-error v-else />
-      <app-notification v-if="notification" />
-    </main>
-    <app-footer />
+  <div id="app">
+    <div class="min-h-screen flex flex-col" :class="{ filtered: isFiltered }">
+      <app-header />
+      <main class="flex-1 relative">
+        <router-view v-if="!error" />
+        <app-error v-else />
+        <app-notification v-if="notification" />
+      </main>
+      <app-footer />
+    </div>
+    <app-confirm v-if="confirm" />
   </div>
 </template>
 
@@ -33,6 +35,9 @@ export default Vue.extend({
     ...mapState('errors', ['error']),
     ...mapState('confirm', { confirm: 'message' }),
     ...mapState('notification', { notification: 'message' }),
+    isFiltered() {
+      return this.confirm ? true : false
+    },
   },
   watch: {
     $route() {
@@ -41,3 +46,8 @@ export default Vue.extend({
   },
 })
 </script>
+<style>
+.filtered {
+  filter: blur(3px) grayscale(100%);
+}
+</style>
