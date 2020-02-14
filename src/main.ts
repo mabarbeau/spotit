@@ -15,9 +15,10 @@ window.onerror = function(message, source, lineno, colno) {
 
 Vue.config.productionTip = false
 
-Vue.config.errorHandler = (err, vm, info) => {
+Vue.config.errorHandler = (error, vm, info) => {
+  console.error(error)
   logger.error({
-    message: err.toString(),
+    message: error.toString(),
     name: vm.$options.name,
     info,
   })
