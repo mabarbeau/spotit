@@ -8,9 +8,13 @@
         <li
           v-for="(item, index) in navigation"
           :key="index"
-          class="pl-5 text-gray-100 hover:text-gray-300"
+          class="inline-block"
         >
-          <router-link v-if="item.to" :to="item.to" class="inline-block">
+          <router-link
+            v-if="item.to"
+            :to="item.to"
+            class="pl-5 text-gray-100 hover:text-gray-300"
+          >
             {{ item.label }}
           </router-link>
           <span v-else>
