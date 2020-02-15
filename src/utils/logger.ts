@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-if (!process.env.VUE_APP_API) throw new Error('API is undefined')
+if (!process.env.VUE_APP_LOGGER) throw new Error('API is undefined')
 const axiosInstance = axios.create({
-  baseURL: process.env.VUE_APP_API,
+  baseURL: process.env.VUE_APP_LOGGER,
   withCredentials: true,
   headers: {
     'Content-Type': 'application/json',
