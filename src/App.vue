@@ -5,11 +5,11 @@
       <main class="flex-1 relative">
         <router-view v-if="!error" />
         <app-error v-else />
-        <app-notification v-if="notification" />
+        <app-notification v-show="notification" />
       </main>
       <app-footer />
     </div>
-    <app-confirm v-if="confirm" />
+    <app-confirm v-show="confirm" />
   </div>
 </template>
 
