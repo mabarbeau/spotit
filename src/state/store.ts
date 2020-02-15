@@ -6,7 +6,7 @@ import modules from './modules'
 
 Vue.use(Vuex)
 
-interface RootState {
+export interface RootState {
   [x: string]: any
 }
 

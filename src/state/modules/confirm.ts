@@ -1,9 +1,12 @@
-interface ConfirmState {
+import { ActionContext } from 'vuex'
+import { RootState } from '../store'
+
+interface ConfirmModule {
   message: string | undefined
-  resolve: (() => boolean) | undefined
+  resolve: ((result: boolean) => void) | undefined
 }
 
-export const state: ConfirmState = {
+export const state: ConfirmModule = {
   message: undefined,
   resolve: undefined,
 }
@@ -11,29 +14,38 @@ export const state: ConfirmState = {
 export const getters = {}
 
 export const mutations = {
-  SET_RESOLVE(state: ConfirmState, resolve: () => boolean) {
+  SET_RESOLVE(state: ConfirmModule, resolve: (result: boolean) => void) {
     state.resolve = resolve
   },
-  SET_MESSAGE(state: ConfirmState, message: string) {
+  SET_MESSAGE(state: ConfirmModule, message: string) {
     state.message = message
   },
-  DELETE_MESSAGE(state: ConfirmState) {
+  DELETE_MESSAGE(state: ConfirmModule) {
     state.message = undefined
   },
 }
 
 export const actions = {
-  async confirm({ commit }: any, message: string) {
+  async confirm(
+    { commit }: ActionContext<ConfirmModule, RootState>,
+    message: string
+  ) {
     commit('SET_MESSAGE', message)
     return new Promise((resolve) => {
       commit('SET_RESOLVE', resolve)
     })
   },
-  async confirmed({ state, commit }: any, message: string) {
+  async confirmed(
+    { state, commit }: ActionContext<ConfirmModule, RootState>,
+    message: string
+  ) {
     if (state.resolve) state.resolve(true)
     commit('DELETE_MESSAGE')
   },
-  async canceled({ state, commit }: any, message: string) {
+  async canceled(
+    { state, commit }: ActionContext<ConfirmModule, RootState>,
+    message: string
+  ) {
     if (state.resolve) state.resolve(false)
     commit('DELETE_MESSAGE')
   },
