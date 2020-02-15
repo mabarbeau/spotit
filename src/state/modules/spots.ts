@@ -8,13 +8,13 @@ interface SpotsCollection {
 }
 
 interface SpotsModule {
-  spot: Spots | Object
-  spots: SpotsCollection | Object
+  spot: Spots | undefined
+  spots: SpotsCollection | undefined
 }
 
 export const state: SpotsModule = {
-  spot: {},
-  spots: {},
+  spot: undefined,
+  spots: undefined,
 }
 
 export const getters = {}
