@@ -6,7 +6,11 @@ import modules from './modules'
 
 Vue.use(Vuex)
 
-const store = new Vuex.Store({
+interface RootState {
+  [x: string]: any
+}
+
+const store: RootState = new Vuex.Store({
   modules,
   // Enable strict mode in development to get a warning
   // when mutating state outside of a mutation.
