@@ -9,6 +9,7 @@
         "gmaps",
         "googlemaps",
         "instanceof",
-        "scripthost"
+        "scripthost",
+        "spotit"
     ]
 }
