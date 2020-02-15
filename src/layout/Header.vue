@@ -1,21 +1,23 @@
 <template>
   <div id="nav" class="bg-gray-800 px-5 py-3 flex justify-between">
     <router-link class="" :to="{ name: 'home' }">
-      <img alt="Spoit logo" src="@/assets/logo.png" class="h-8" />
+      <img alt="Spotit logo" src="@/assets/logo.png" class="h-8" />
     </router-link>
     <nav class="inline-flex items-center">
-      <base-list
-        v-model="navigation"
-        :options="{
-          tag: 'ol',
-        }"
-        :outer-attrs="{
-          class: 'inline-block',
-        }"
-        :inner-attrs="{
-          class: 'pl-5 text-gray-100 hover:text-gray-300',
-        }"
-      />
+      <ul>
+        <li
+          v-for="(item, index) in navigation"
+          :key="index"
+          class="pl-5 text-gray-100 hover:text-gray-300"
+        >
+          <router-link v-if="item.to" :to="item.to" class="inline-block">
+            {{ item.label }}
+          </router-link>
+          <span v-else>
+            {{ item.label }}
+          </span>
+        </li>
+      </ul>
     </nav>
   </div>
 </template>
