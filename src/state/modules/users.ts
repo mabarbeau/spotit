@@ -1,4 +1,6 @@
 import Api from '@/api'
+import { ActionContext } from 'vuex'
+import { RootState } from '../store'
 
 interface User {
   name: string
@@ -19,12 +21,14 @@ interface UserCollection {
   total: number
 }
 
-interface UserState {
+interface UserModule {
   user: User | undefined
   users: UserCollection | undefined
 }
 
-export const state: UserState = {
+type ModuleActionContext = ActionContext<UserModule, RootState>
+
+export const state: UserModule = {
   user: undefined,
   users: undefined,
 }
@@ -32,16 +36,16 @@ export const state: UserState = {
 export const getters = {}
 
 export const mutations = {
-  SET_USERS(state: UserState, users: UserCollection) {
+  SET_USERS(state: UserModule, users: UserCollection) {
     state.users = users
   },
-  SET_USER(state: UserState, user: User) {
+  SET_USER(state: UserModule, user: User) {
     state.user = user
   },
 }
 
 export const actions = {
-  async loadUsers({ commit, dispatch }: any) {
+  async loadUsers({ commit, dispatch }: ModuleActionContext) {
     Api.get('users.all', {
       payload: window.location.search,
     })
@@ -52,7 +56,7 @@ export const actions = {
         dispatch('errors/set', error, { root: true })
       })
   },
-  async loadUser({ commit, dispatch }: any, id: string) {
+  async loadUser({ commit, dispatch }: ModuleActionContext, id: string) {
     Api.get('users.find', {
       params: { id },
     })

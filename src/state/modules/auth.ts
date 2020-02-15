@@ -1,5 +1,6 @@
 import Api from '@/api'
 import { ActionContext } from 'vuex'
+import { RootState } from '../store'
 
 interface User {
   name: string
@@ -8,6 +9,8 @@ interface User {
 interface AuthModule {
   me: User | undefined
 }
+
+type ModuleActionContext = ActionContext<AuthModule, RootState>
 
 export const state: AuthModule = {
   me: undefined,
@@ -22,10 +25,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async login(
-    { commit, dispatch }: any,
-    payload: ActionContext<AuthModule, any>
-  ) {
+  async login({ commit, dispatch }: ModuleActionContext, payload: any) {
     await Api.post('auth.login', {
       payload,
     })
