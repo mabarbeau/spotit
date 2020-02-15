@@ -1,6 +1,6 @@
 interface NotificationState {
   message: string | undefined
-  resolve: (() => void) | undefined
+  resolve: (() => boolean) | undefined
 }
 
 export const state: NotificationState = {
@@ -11,6 +11,9 @@ export const state: NotificationState = {
 export const getters = {}
 
 export const mutations = {
+  SET_RESOLVE(state: NotificationState, resolve: () => boolean) {
+    state.resolve = resolve
+  },
   SET_MESSAGE(state: NotificationState, message: string) {
     state.message = message
   },
@@ -20,10 +23,10 @@ export const mutations = {
 }
 
 export const actions = {
-  async alert({ state, commit }: any, message: string) {
+  async alert({ commit }: any, message: string) {
     commit('SET_MESSAGE', message)
     return new Promise((resolve) => {
-      state.resolve = resolve
+      commit('SET_RESOLVE', resolve)
     })
   },
   async confirmed({ state, commit }: any, message: string) {

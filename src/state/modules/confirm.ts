@@ -23,7 +23,7 @@ export const mutations = {
 }
 
 export const actions = {
-  async confirm({ state, commit }: any, message: string) {
+  async confirm({ commit }: any, message: string) {
     commit('SET_MESSAGE', message)
     return new Promise((resolve) => {
       commit('SET_RESOLVE', resolve)
