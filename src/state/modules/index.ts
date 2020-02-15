@@ -29,7 +29,7 @@ function getNamespace(subtree: any, path: any[]): any {
     // Search for files in subdirectories.
     true,
     // Include any .ts files that are not this file or a unit test.
-    /^((?!index|\.unit\.).)*\.ts$/
+    /^((?!index|\.spec\.).)*\.ts$/
   )
 
   // For every Vuex module...
