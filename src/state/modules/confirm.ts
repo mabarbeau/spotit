@@ -35,17 +35,11 @@ export const actions = {
       commit('SET_RESOLVE', resolve)
     })
   },
-  async confirmed(
-    { state, commit }: ActionContext<ConfirmModule, RootState>,
-    message: string
-  ) {
+  async confirmed({ state, commit }: ActionContext<ConfirmModule, RootState>) {
     if (state.resolve) state.resolve(true)
     commit('DELETE_MESSAGE')
   },
-  async canceled(
-    { state, commit }: ActionContext<ConfirmModule, RootState>,
-    message: string
-  ) {
+  async canceled({ state, commit }: ActionContext<ConfirmModule, RootState>) {
     if (state.resolve) state.resolve(false)
     commit('DELETE_MESSAGE')
   },
