@@ -1,5 +1,5 @@
 import Api from '@/api'
-import { ActionContext } from 'vuex/types/index.d'
+import { ActionContext } from 'vuex'
 
 interface User {
   name: string
