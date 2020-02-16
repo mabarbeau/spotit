@@ -6,7 +6,7 @@ const localVue = createLocalVue()
 
 localVue.use(Vuex)
 
-describe('Alert.vue', () => {
+describe('Notification.vue', () => {
   let actions: any
   let notification: any
   let store: any
