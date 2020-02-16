@@ -17,7 +17,7 @@
 import Vue from 'vue'
 import { mapState } from 'vuex'
 import AppConfirm from '@/views/layout/Confirm.vue'
-import AppError from '@/views/errors/Index.vue'
+import AppError from '@/views/errors/500.vue'
 import AppFooter from '@/views/layout/Footer.vue'
 import AppHeader from '@/views/layout/Header.vue'
 import AppNotification from '@/views/layout/Notification.vue'
