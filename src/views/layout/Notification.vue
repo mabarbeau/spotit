@@ -8,7 +8,7 @@
         <p>
           {{ message }}
         </p>
-        <button class="yes ml-5 h-6" @click="confirmed">
+        <button class="yes ml-5" @click="confirmed">
           Ok
         </button>
       </div>
