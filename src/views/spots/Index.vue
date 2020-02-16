@@ -1,12 +1,11 @@
 <template>
-  <div>
+  <div v-if="spots">
     <h1>
       Spots Index
       {{ spots.currentPage }}
     </h1>
     <section>
       <base-pagination
-        v-if="spots"
         :list="spots"
         :name="$route.name"
         :child-name="`${$route.name} show`"
