@@ -2,6 +2,7 @@
   <div>
     <h1> Users </h1>
     <base-pagination
+      v-if="users"
       :name="$route.name"
       :child-name="`${$route.name} show`"
       :list="users"

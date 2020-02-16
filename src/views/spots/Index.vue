@@ -6,10 +6,11 @@
     </h1>
     <section>
       <base-pagination
+        v-if="spots"
         :list="spots"
-        text="title"
         :name="$route.name"
         :child-name="`${$route.name} show`"
+        text="title"
       />
     </section>
     <section>
