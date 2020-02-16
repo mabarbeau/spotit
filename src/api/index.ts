@@ -1,7 +1,7 @@
 import Router from './router'
 import routes from './routes'
 
-if (!process.env.VUE_APP_API) throw new Error('API is undefined')
+if (!process.env.VUE_APP_API) console.warn('API is undefined')
 
 const axiosOptions = {
   baseURL: process.env.VUE_APP_API,
