@@ -7,7 +7,6 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
-import store from '@/state/store'
 
 export default Vue.extend({
   name: 'Users',
@@ -18,14 +17,18 @@ export default Vue.extend({
     },
   },
   computed: mapState('users', ['user']),
-  beforeRouteEnter(to: any, from: any, next: any) {
-    store.dispatch('users/loadUser', to.params.id).then(() => {
-      next((vm: any) => {
-        if (Object.keys(vm.user).length === 0) {
-          vm.$router.push({ name: 'page not found' })
-        }
-      })
-    })
+  watch: {
+    $route() {
+      this.load()
+    },
+  },
+  mounted() {
+    this.load()
+  },
+  methods: {
+    load() {
+      this.$store.dispatch('users/loadUser', this.id)
+    },
   },
 })
 </script>
