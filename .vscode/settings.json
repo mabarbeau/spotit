@@ -11,6 +11,7 @@
         "googlemaps",
         "instanceof",
         "longtitle",
+        "onfailure",
         "scripthost",
         "signin",
         "spotit",
