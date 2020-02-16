@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="user">
     <h1>{{ user.name }}</h1>
     <h2>User</h2>
   </div>
@@ -7,6 +7,7 @@
 <script lang="ts">
 import Vue from 'vue'
 import { mapState } from 'vuex'
+import store from '@/state/store'
 
 export default Vue.extend({
   name: 'Users',
@@ -18,12 +19,10 @@ export default Vue.extend({
   },
   computed: mapState('users', ['user']),
   beforeRouteEnter(to: any, from: any, next: any) {
-    next((vm: any) => {
-      vm.$store.dispatch('users/loadUser', vm.id).then(() => {
+    store.dispatch('users/loadUser', to.params.id).then(() => {
+      next((vm: any) => {
         if (Object.keys(vm.user).length === 0) {
-          vm.$router.push({
-            name: '404',
-          })
+          vm.$router.push({ name: 'page not found' })
         }
       })
     })

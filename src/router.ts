@@ -59,8 +59,9 @@ export default new Router({
       props: true,
     },
     {
-      path: '*',
-      name: '404',
+      path: '/404',
+      alias: '*',
+      name: 'page not found',
       component: () =>
         import(/* webpackChunkName: "404" */ '@/views/errors/404.vue'),
     },
