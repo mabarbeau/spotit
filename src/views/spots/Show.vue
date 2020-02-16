@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div v-if="spot">
     <h1> {{ spot.title }} </h1>
     <router-link :to="{ name: 'spots' }">
       Back
