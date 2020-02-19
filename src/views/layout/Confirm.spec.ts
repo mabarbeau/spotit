@@ -36,7 +36,7 @@ describe('Alert.vue', () => {
     expect(actions.canceled).toHaveBeenCalled()
   })
 
-  it('alert dispatches "confirmed" event when "Ok" button is clicked', () => {
+  it('confirm dispatches "confirmed" event when "Ok" button is clicked', () => {
     const wrapper = shallowMount(Confirm, { store, localVue })
     wrapper.find('button.yes').trigger('click')
     expect(actions.confirmed).toHaveBeenCalled()
