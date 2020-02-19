@@ -1,16 +1,20 @@
 <template>
   <transition name="slide-fade">
     <div
+      v-show="messages"
       :class="$style.alert"
       class="bg-gray-200 border border-gray-400 border-radius-sm shadow-md p-2"
     >
       <div class="flex items-center">
         <p>
-          {{ message }}
+          {{ messages[messages.length - 1] }}
         </p>
         <button class="yes ml-5" @click="confirmed">
           Ok
         </button>
+      </div>
+      <div v-if="total > 1">
+        {{ total + 1 - messages.length }} of {{ total }}
       </div>
     </div>
   </transition>
@@ -22,7 +26,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default Vue.extend({
   computed: {
-    ...mapState('alert', ['message']),
+    ...mapState('alert', ['messages', 'total']),
   },
   methods: {
     ...mapActions('alert', ['confirmed']),
@@ -40,14 +44,12 @@ export default Vue.extend({
 }
 </style>
 <style scoped>
-/* Enter and leave animations can use different */
-/* durations and timing functions.              */
 .slide-fade-enter-active,
 .slide-fade-leave-active {
   transition: all 0.3s ease;
 }
-.slide-fade-enter, .slide-fade-leave-to
-/* .slide-fade-leave-active below version 2.1.8 */ {
+.slide-fade-enter,
+.slide-fade-leave-to {
   transform: translateX(-100px);
   opacity: 0;
 }

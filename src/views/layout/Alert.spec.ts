@@ -18,7 +18,7 @@ describe('Alert.vue', () => {
     alert = {
       namespaced: true,
       state: {
-        message: 'test message',
+        messages: ['test message'],
       },
       actions,
     }

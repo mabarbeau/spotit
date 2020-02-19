@@ -1,41 +1,41 @@
 import { RootState } from '../store'
 import { ActionContext } from 'vuex'
 
+interface Alert {
+  id: string
+  message: string
+}
+
 interface AlertModule {
-  message: string | undefined
-  resolve: ((result: boolean) => void) | undefined
+  messages: string[]
+  total: number
 }
 
 type ModuleActionContext = ActionContext<AlertModule, RootState>
 
 export const state: AlertModule = {
-  message: undefined,
-  resolve: undefined,
+  messages: [],
+  total: 0,
 }
 
 export const getters = {}
 
 export const mutations = {
-  SET_RESOLVE(state: AlertModule, resolve: (result: boolean) => void) {
-    state.resolve = resolve
+  ADD_ALERT(state: AlertModule, message: string) {
+    state.total = state.total + 1
+    state.messages.push(message)
   },
-  SET_MESSAGE(state: AlertModule, message: string) {
-    state.message = message
-  },
-  DELETE_MESSAGE(state: AlertModule) {
-    state.message = undefined
+  DELETE_ALERT(state: AlertModule) {
+    state.messages.pop()
+    if (state.messages.length === 0) state.total = 0
   },
 }
 
 export const actions = {
-  async alert({ commit }: ModuleActionContext, message: string) {
-    commit('SET_MESSAGE', message)
-    return new Promise((resolve) => {
-      commit('SET_RESOLVE', resolve)
-    })
+  async add({ commit }: ModuleActionContext, message: Alert) {
+    commit('ADD_ALERT', message)
   },
-  async confirmed({ state, commit }: ModuleActionContext, message: string) {
-    if (state.resolve) state.resolve(true)
-    commit('DELETE_MESSAGE')
+  async confirmed({ commit }: ModuleActionContext) {
+    commit('DELETE_ALERT')
   },
 }

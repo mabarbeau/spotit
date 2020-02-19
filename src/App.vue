@@ -5,7 +5,7 @@
       <main class="flex-1 relative">
         <router-view v-if="!error" />
         <app-error v-else />
-        <app-alert v-show="alert" />
+        <app-alert v-show="alert.length" />
       </main>
       <app-footer />
     </div>
@@ -34,7 +34,7 @@ export default Vue.extend({
   computed: {
     ...mapState('errors', ['error']),
     ...mapState('confirm', { confirm: 'message' }),
-    ...mapState('alert', { alert: 'message' }),
+    ...mapState('alert', { alert: 'messages' }),
     isFiltered() {
       return this.confirm ? true : false
     },
