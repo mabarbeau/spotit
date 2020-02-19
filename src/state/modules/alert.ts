@@ -1,14 +1,14 @@
 import { RootState } from '../store'
 import { ActionContext } from 'vuex'
 
-interface NotificationModule {
+interface AlertModule {
   message: string | undefined
   resolve: ((result: boolean) => void) | undefined
 }
 
-type ModuleActionContext = ActionContext<NotificationModule, RootState>
+type ModuleActionContext = ActionContext<AlertModule, RootState>
 
-export const state: NotificationModule = {
+export const state: AlertModule = {
   message: undefined,
   resolve: undefined,
 }
@@ -16,13 +16,13 @@ export const state: NotificationModule = {
 export const getters = {}
 
 export const mutations = {
-  SET_RESOLVE(state: NotificationModule, resolve: (result: boolean) => void) {
+  SET_RESOLVE(state: AlertModule, resolve: (result: boolean) => void) {
     state.resolve = resolve
   },
-  SET_MESSAGE(state: NotificationModule, message: string) {
+  SET_MESSAGE(state: AlertModule, message: string) {
     state.message = message
   },
-  DELETE_MESSAGE(state: NotificationModule) {
+  DELETE_MESSAGE(state: AlertModule) {
     state.message = undefined
   },
 }

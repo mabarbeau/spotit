@@ -23,11 +23,9 @@ export default Vue.extend({
   },
   methods: {
     async alert(message: string) {
-      await this.$store
-        .dispatch('notification/alert', message)
-        .then((result) => {
-          this.result = result
-        })
+      await this.$store.dispatch('alert/alert', message).then((result) => {
+        this.result = result
+      })
     },
     async confirm(message: string) {
       await this.$store.dispatch('confirm/confirm', message).then((result) => {

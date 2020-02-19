@@ -5,7 +5,7 @@
       <main class="flex-1 relative">
         <router-view v-if="!error" />
         <app-error v-else />
-        <app-notification v-show="notification" />
+        <app-alert v-show="alert" />
       </main>
       <app-footer />
     </div>
@@ -20,7 +20,7 @@ import AppConfirm from '@/views/layout/Confirm.vue'
 import AppError from '@/views/errors/500.vue'
 import AppFooter from '@/views/layout/Footer.vue'
 import AppHeader from '@/views/layout/Header.vue'
-import AppNotification from '@/views/layout/Notification.vue'
+import AppAlert from '@/views/layout/Alert.vue'
 
 export default Vue.extend({
   name: 'App',
@@ -29,12 +29,12 @@ export default Vue.extend({
     AppError,
     AppFooter,
     AppHeader,
-    AppNotification,
+    AppAlert,
   },
   computed: {
     ...mapState('errors', ['error']),
     ...mapState('confirm', { confirm: 'message' }),
-    ...mapState('notification', { notification: 'message' }),
+    ...mapState('alert', { alert: 'message' }),
     isFiltered() {
       return this.confirm ? true : false
     },

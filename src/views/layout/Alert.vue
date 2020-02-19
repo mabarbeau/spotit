@@ -1,7 +1,7 @@
 <template>
   <transition name="slide-fade">
     <div
-      :class="$style.notification"
+      :class="$style.alert"
       class="bg-gray-200 border border-gray-400 border-radius-sm shadow-md p-2"
     >
       <div class="flex items-center">
@@ -22,15 +22,15 @@ import { mapState, mapActions } from 'vuex'
 
 export default Vue.extend({
   computed: {
-    ...mapState('notification', ['message']),
+    ...mapState('alert', ['message']),
   },
   methods: {
-    ...mapActions('notification', ['confirmed']),
+    ...mapActions('alert', ['confirmed']),
   },
 })
 </script>
 <style module>
-.notification {
+.alert {
   position: absolute;
   bottom: 20px;
   left: 20px;

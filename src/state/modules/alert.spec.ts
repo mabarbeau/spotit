@@ -1,4 +1,4 @@
-import { mutations } from './notification'
+import { mutations } from './alert'
 
 const { SET_MESSAGE, DELETE_MESSAGE } = mutations
 
