@@ -24,11 +24,11 @@ class ParamNotFoundException extends Error {
 export default class Router {
   protected routes: any
 
-  protected axios: AxiosInstance
+  protected client: AxiosInstance
 
   constructor(routes: any, config?: AxiosRequestConfig) {
     this.routes = routes
-    this.axios = axios.create(config)
+    this.client = axios.create(config)
   }
 
   public async get(
@@ -42,32 +42,32 @@ export default class Router {
       typeof payload === 'string'
         ? payload
         : `?${querystring.stringify(payload)}`
-    return this.return(this.axios.get(this.url(name, params) + query))
+    return this.return(this.client.get(this.url(name, params) + query))
   }
 
   public async post(
     name: string,
     { params = undefined, payload = undefined }: RouteParameters = {}
   ) {
-    return this.return(this.axios.post(this.url(name, params), payload))
+    return this.return(this.client.post(this.url(name, params), payload))
   }
 
   public async put(
     name: string,
     { params = undefined, payload = undefined }: RouteParameters = {}
   ) {
-    return this.return(this.axios.put(this.url(name, params), payload))
+    return this.return(this.client.put(this.url(name, params), payload))
   }
 
   public async patch(
     name: string,
     { params = undefined, payload = undefined }: RouteParameters = {}
   ) {
-    return this.return(this.axios.patch(this.url(name, params), payload))
+    return this.return(this.client.patch(this.url(name, params), payload))
   }
 
   public async delete(name: string, params?: any) {
-    return this.return(this.axios.delete(this.url(name, params)))
+    return this.return(this.client.delete(this.url(name, params)))
   }
 
   protected url(name: string, params: any = undefined): string {
