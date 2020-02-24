@@ -1,22 +1,24 @@
 <template>
-  <div :class="[$style.confirm, $style.fullScreen]">
-    <div
-      class="m-5 bg-white border border-gray-300 border-radius-sm shadow-md p-2 max-w-md z-10"
-    >
-      <p>
+  <v-dialog v-model="isMessage" width="500">
+    <v-card>
+      <v-card-title class="headline grey lighten-2" primary-title>
+        Privacy Policy
+      </v-card-title>
+      <v-divider></v-divider>
+      <v-card-text>
         {{ message }}
-      </p>
-      <div class="w-full flex justify-between mt-5">
-        <button class="no" @click="canceled">
+      </v-card-text>
+      <v-card-actions>
+        <button id="no" color="primary" text @click="canceled">
           Cancel
         </button>
-        <button class="yes" @click="confirmed">
+        <v-spacer></v-spacer>
+        <button id="yes" color="primary" text @click="confirmed">
           Ok
         </button>
-      </div>
-    </div>
-    <div :class="[$style.background, $style.fullScreen]" />
-  </div>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
 </template>
 
 <script lang="ts">
@@ -25,6 +27,14 @@ import { mapState, mapActions } from 'vuex'
 
 export default Vue.extend({
   computed: {
+    isMessage: {
+      get(): boolean {
+        return this.message !== undefined
+      },
+      set(): void {
+        if (this.message === false) this.canceled()
+      },
+    },
     ...mapState('confirm', ['message']),
   },
   mounted() {

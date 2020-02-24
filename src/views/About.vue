@@ -13,9 +13,9 @@
     >
       Alert
     </button>
-    <button @click="confirm('You sure about that?')">
+    <v-btn color="red lighten-2" dark @click="confirm('You sure about that?')">
       Confirm
-    </button>
+    </v-btn>
     <span v-if="result !== undefined"> Result: {{ result }}</span>
   </div>
 </template>

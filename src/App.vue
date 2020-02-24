@@ -1,6 +1,6 @@
 <template>
   <v-app id="app">
-    <div class="min-h-screen flex flex-col" :class="{ filtered: isFiltered }">
+    <div class="min-h-screen flex flex-col">
       <app-header />
       <v-content>
         <transition name="fade" mode="out-in">
@@ -13,7 +13,7 @@
       </v-content>
       <app-footer />
     </div>
-    <app-confirm v-show="confirm" />
+    <app-confirm />
   </v-app>
 </template>
 
@@ -37,11 +37,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('errors', ['error']),
-    ...mapState('confirm', { confirm: 'message' }),
     ...mapState('alert', { alert: 'messages' }),
-    isFiltered() {
-      return this.confirm ? true : false
-    },
   },
   watch: {
     $route() {
