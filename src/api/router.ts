@@ -103,9 +103,7 @@ export default class Router {
   }
 
   protected async return(response: Promise<AxiosResponse>) {
-    return response.then((reply) => {
-      this.camelCaseKeys(reply.data)
-    })
+    return response.then((reply) => this.camelCaseKeys(reply.data))
   }
 
   protected camelCaseKeys(object: any): any {
