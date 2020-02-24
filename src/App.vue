@@ -3,12 +3,15 @@
     <div class="min-h-screen flex flex-col" :class="{ filtered: isFiltered }">
       <app-header />
       <main class="flex-1 relative">
-        <router-view v-if="!error" />
+        <transition v-if="!error" name="fade" mode="out-in">
+          <router-view />
+        </transition>
         <app-error v-else />
         <app-alert v-show="alert.length" />
       </main>
       <app-footer />
     </div>
+
     <app-confirm v-show="confirm" />
   </div>
 </template>
@@ -49,5 +52,16 @@ export default Vue.extend({
 <style>
 .filtered {
   filter: blur(3px) grayscale(100%);
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
 }
 </style>
