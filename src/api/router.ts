@@ -7,17 +7,17 @@ interface RouteParameters<payload = object> {
   payload?: payload
 }
 
-class RouteNotFoundException extends Error {
+export class RouteNotFoundException extends Error {
   constructor(message: string) {
     super(`\n\nRoute Not Found Exception: ${message}`)
     Object.setPrototypeOf(this, RouteNotFoundException.prototype)
   }
 }
 
-class ParamNotFoundException extends Error {
+export class ParamNotFoundException extends Error {
   constructor(message: string) {
     super(`\n\nParameter Not Found Exception: ${message}`)
-    Object.setPrototypeOf(this, RouteNotFoundException.prototype)
+    Object.setPrototypeOf(this, ParamNotFoundException.prototype)
   }
 }
 

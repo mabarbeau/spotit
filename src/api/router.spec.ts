@@ -1,4 +1,7 @@
-import Router from './router'
+import Router, {
+  RouteNotFoundException,
+  ParamNotFoundException,
+} from './router'
 
 jest.mock('axios')
 
@@ -48,9 +51,14 @@ describe('the api router', () => {
     const url = router['url']('parameters.two', parameters)
     expect(url).toBe('/users/1')
   })
-  it('throws error is the route is not found', () => {
+  it('throws route not found error', () => {
     expect(() => {
-      router['url']('fake')
-    }).toThrow()
+      router['url']('wrong')
+    }).toThrow(RouteNotFoundException)
+  })
+  it('throws missing parameters error', () => {
+    expect(() => {
+      router['url']('parameters.one', { wrong: 1 })
+    }).toThrow(ParamNotFoundException)
   })
 })
