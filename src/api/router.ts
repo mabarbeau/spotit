@@ -43,7 +43,9 @@ export default class Router {
       typeof payload === 'string'
         ? payload
         : `?${querystring.stringify(payload)}`
-    return this.return(this.client.get(this.url(name, params) + query, config))
+    return this.return(
+      this.client.get(`${this.url(name, params)}${query}`, config)
+    )
   }
 
   public async post(
