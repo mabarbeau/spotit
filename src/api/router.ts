@@ -4,7 +4,7 @@ import querystring from 'querystring'
 
 interface RouteParameters<payload = object> {
   params?: object | undefined
-  payload?: payload | string | undefined
+  payload?: payload
 }
 
 class RouteNotFoundException extends Error {
@@ -26,7 +26,7 @@ export default class Router {
 
   protected axios: AxiosInstance
 
-  constructor(routes: any, config: AxiosRequestConfig | undefined = undefined) {
+  constructor(routes: any, config?: AxiosRequestConfig) {
     this.routes = routes
     this.axios = axios.create(config)
   }
@@ -35,8 +35,8 @@ export default class Router {
     name: string,
     {
       params = undefined,
-      payload = '',
-    }: RouteParameters<querystring.ParsedUrlQueryInput>
+      payload,
+    }: RouteParameters<querystring.ParsedUrlQueryInput | string> = {}
   ) {
     const query =
       typeof payload === 'string'
@@ -47,21 +47,21 @@ export default class Router {
 
   public async post(
     name: string,
-    { params = undefined, payload = undefined }: RouteParameters
+    { params = undefined, payload = undefined }: RouteParameters = {}
   ) {
     return this.return(this.axios.post(this.url(name, params), payload))
   }
 
   public async put(
     name: string,
-    { params = undefined, payload = undefined }: RouteParameters
+    { params = undefined, payload = undefined }: RouteParameters = {}
   ) {
     return this.return(this.axios.put(this.url(name, params), payload))
   }
 
   public async patch(
     name: string,
-    { params = undefined, payload = undefined }: RouteParameters
+    { params = undefined, payload = undefined }: RouteParameters = {}
   ) {
     return this.return(this.axios.patch(this.url(name, params), payload))
   }
@@ -103,7 +103,9 @@ export default class Router {
   }
 
   protected async return(response: Promise<AxiosResponse>) {
-    return response.then((reply) => this.camelCaseKeys(reply.data))
+    return response.then((reply) => {
+      this.camelCaseKeys(reply.data)
+    })
   }
 
   protected camelCaseKeys(object: any): any {
