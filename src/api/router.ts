@@ -36,38 +36,46 @@ export default class Router {
     {
       params = undefined,
       payload,
-    }: RouteParameters<querystring.ParsedUrlQueryInput | string> = {}
+    }: RouteParameters<querystring.ParsedUrlQueryInput | string> = {},
+    config?: AxiosRequestConfig
   ) {
     const query =
       typeof payload === 'string'
         ? payload
         : `?${querystring.stringify(payload)}`
-    return this.return(this.client.get(this.url(name, params) + query))
+    return this.return(this.client.get(this.url(name, params) + query, config))
   }
 
   public async post(
     name: string,
-    { params = undefined, payload = undefined }: RouteParameters = {}
+    { params = undefined, payload = undefined }: RouteParameters = {},
+    config?: AxiosRequestConfig
   ) {
-    return this.return(this.client.post(this.url(name, params), payload))
+    return this.return(
+      this.client.post(this.url(name, params), payload, config)
+    )
   }
 
   public async put(
     name: string,
-    { params = undefined, payload = undefined }: RouteParameters = {}
+    { params = undefined, payload = undefined }: RouteParameters = {},
+    config?: AxiosRequestConfig
   ) {
-    return this.return(this.client.put(this.url(name, params), payload))
+    return this.return(this.client.put(this.url(name, params), payload, config))
   }
 
   public async patch(
     name: string,
-    { params = undefined, payload = undefined }: RouteParameters = {}
+    { params = undefined, payload = undefined }: RouteParameters = {},
+    config?: AxiosRequestConfig
   ) {
-    return this.return(this.client.patch(this.url(name, params), payload))
+    return this.return(
+      this.client.patch(this.url(name, params), payload, config)
+    )
   }
 
-  public async delete(name: string, params?: any) {
-    return this.return(this.client.delete(this.url(name, params)))
+  public async delete(name: string, params?: any, config?: AxiosRequestConfig) {
+    return this.return(this.client.delete(this.url(name, params), config))
   }
 
   protected url(name: string, params: any = undefined): string {
