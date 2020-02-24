@@ -7,6 +7,7 @@ import '@/components/_globals'
 import './registerServiceWorker'
 import './styles/main.scss'
 import {} from 'googlemaps'
+import vuetify from './plugins/vuetify'
 
 // eslint-disable-next-line func-names
 window.onerror = function(message, source, lineno, colno) {
@@ -26,5 +27,6 @@ Vue.config.errorHandler = (error, vm, info) => {
 new Vue({
   router,
   store,
+  vuetify,
   render: (h) => h(App),
 }).$mount('#app')

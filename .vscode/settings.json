@@ -15,6 +15,7 @@
         "scripthost",
         "signin",
         "spotit",
-        "tailwindcss"
+        "tailwindcss",
+        "vuetify"
     ]
 }
