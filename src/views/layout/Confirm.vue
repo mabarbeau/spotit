@@ -9,13 +9,13 @@
         {{ message }}
       </v-card-text>
       <v-card-actions>
-        <button id="no" color="primary" text @click="canceled">
+        <v-btn id="no" color="primary" text @click="canceled">
           Cancel
-        </button>
+        </v-btn>
         <v-spacer></v-spacer>
-        <button id="yes" color="primary" text @click="confirmed">
+        <v-btn id="yes" color="primary" text @click="confirmed">
           Ok
-        </button>
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
