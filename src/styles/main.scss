@@ -29,3 +29,25 @@ button, a.button{
     vertical-align: middle;
     border-radius: 4px;
 }
+.filtered {
+  filter: blur(3px) grayscale(100%);
+}
+.fade-enter-active,
+.fade-leave-active {
+  transition-duration: 0.3s;
+  transition-property: opacity;
+  transition-timing-function: ease;
+}
+.fade-enter,
+.fade-leave-active {
+  opacity: 0;
+}
+.slide-fade-enter-active,
+.slide-fade-leave-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-enter,
+.slide-fade-leave-to {
+  transform: translateX(-100px);
+  opacity: 0;
+}
