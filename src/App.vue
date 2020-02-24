@@ -1,8 +1,8 @@
 <template>
-  <div id="app">
+  <v-app id="app">
     <div class="min-h-screen flex flex-col" :class="{ filtered: isFiltered }">
       <app-header />
-      <main class="flex-1 relative">
+      <v-content>
         <transition name="fade" mode="out-in">
           <router-view v-if="!error" />
           <app-error v-else />
@@ -10,12 +10,11 @@
         <transition name="slide-fade">
           <app-alert v-show="alert.length" />
         </transition>
-      </main>
+      </v-content>
       <app-footer />
     </div>
-
     <app-confirm v-show="confirm" />
-  </div>
+  </v-app>
 </template>
 
 <script lang="ts">

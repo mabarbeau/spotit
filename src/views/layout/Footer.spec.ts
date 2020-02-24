@@ -3,8 +3,7 @@ import Footer from './Footer.vue'
 
 describe('Footer.vue', () => {
   it('has the word footer', () => {
-    const msg = 'Footer'
     const wrapper = shallowMount(Footer)
-    expect(wrapper.text()).toContain(msg)
+    expect(wrapper.text()).toContain(new Date().getFullYear())
   })
 })

@@ -1,18 +1,17 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
-  </div>
+  <v-content>
+    <v-container class="fill-height" fluid>
+      <v-row align="center" justify="center">
+        Home
+      </v-row>
+    </v-container>
+  </v-content>
 </template>
 
 <script>
 import Vue from 'vue'
-import HelloWorld from '@/components/HelloWorld.vue'
 
 export default Vue.extend({
   name: 'Home',
-  components: {
-    HelloWorld,
-  },
 })
 </script>
