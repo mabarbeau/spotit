@@ -3,7 +3,10 @@ import { mutations } from './alert'
 const { ADD_ALERT, DELETE_ALERT } = mutations
 
 describe('mutations', () => {
-  const message = 'test message'
+  const message: App.Alert = {
+    type: 'info',
+    text: 'test',
+  }
   it('sets a message', () => {
     const state = {
       messages: [],

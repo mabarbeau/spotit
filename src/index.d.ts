@@ -11,4 +11,8 @@ declare namespace App {
     404: string
     500: string
   }
+  interface Alert {
+    type: string
+    text: string
+  }
 }

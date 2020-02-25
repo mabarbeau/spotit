@@ -1,19 +1,34 @@
 <template>
   <div class="about">
     <h1>This is an about page</h1>
-    <button @click="alert('Roger, capt\'n')">
-      Alert
-    </button>
-    <button
+    <v-btn
+      color="green lighten-2"
       @click="
-        alert(
-          'Lorem ipsum dolor sit amen consenter adipisicing elite. Aliquant vera ibague'
+        success(
+          'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quam quidem, quas quo dolores quis temporibus! Corporis mollitia laboriosam blanditiis consequuntur, neque perspiciatis commodi debitis a quisquam placeat consequatur officia aperiam.'
         )
       "
     >
-      Alert
-    </button>
-    <v-btn color="red lighten-2" dark @click="confirm('You sure about that?')">
+      Success
+    </v-btn>
+    <v-btn @click="info('info')">
+      Info
+    </v-btn>
+    <v-btn color="orange lighten-2" @click="warning('warning')">
+      Warning
+    </v-btn>
+    <v-btn color="red lighten-2" @click="error('error')">
+      Error
+    </v-btn>
+    <v-btn
+      dark
+      @click="
+        confirm({
+          title: 'You sure about that?',
+          text: 'This action can\'t be undone',
+        })
+      "
+    >
       Confirm
     </v-btn>
     <span v-if="result !== undefined"> Result: {{ result }}</span>
@@ -28,13 +43,20 @@ export default Vue.extend({
   data() {
     return {
       result: undefined,
-      count: 0,
     }
   },
   methods: {
-    async alert(message: string) {
-      this.count = this.count + 1
-      await this.$store.dispatch('alert/add', message)
+    async success(message: string) {
+      await this.$store.dispatch('alert/success', message)
+    },
+    async info(message: string) {
+      await this.$store.dispatch('alert/info', message)
+    },
+    async warning(message: string) {
+      await this.$store.dispatch('alert/warning', message)
+    },
+    async error(message: string) {
+      await this.$store.dispatch('alert/error', message)
     },
     async confirm(message: string) {
       await this.$store.dispatch('confirm/confirm', message).then((result) => {

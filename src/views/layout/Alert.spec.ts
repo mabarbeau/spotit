@@ -1,5 +1,6 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
+import { mount, createLocalVue } from '@vue/test-utils'
+import Vuetify from 'vuetify'
 import Alert from './Alert.vue'
 
 const localVue = createLocalVue()
@@ -10,8 +11,10 @@ describe('Alert.vue', () => {
   let actions: any
   let alert: any
   let store: any
+  let vuetify: any
 
   beforeEach(() => {
+    vuetify = new Vuetify()
     actions = {
       confirmed: jest.fn(),
     }
@@ -30,8 +33,12 @@ describe('Alert.vue', () => {
   })
 
   it('confirm dispatches "confirmed" event when "Ok" button is clicked', () => {
-    const wrapper = shallowMount(Alert, { store, localVue })
-    wrapper.find('button.yes').trigger('click')
+    const wrapper = mount(Alert, {
+      localVue,
+      vuetify,
+      store,
+    })
+    wrapper.find('.yes').trigger('click')
     expect(actions.confirmed).toHaveBeenCalled()
   })
 })

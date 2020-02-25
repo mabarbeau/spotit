@@ -1,13 +1,8 @@
 import { RootState } from '../store'
 import { ActionContext } from 'vuex'
 
-interface Alert {
-  id: string
-  message: string
-}
-
 interface AlertModule {
-  messages: string[]
+  messages: App.Alert[]
   total: number
 }
 
@@ -18,10 +13,14 @@ export const state: AlertModule = {
   total: 0,
 }
 
-export const getters = {}
+export const getters = {
+  alerts(state: AlertModule) {
+    return state.messages
+  },
+}
 
 export const mutations = {
-  ADD_ALERT(state: AlertModule, message: string) {
+  ADD_ALERT(state: AlertModule, message: App.Alert) {
     state.total = state.total + 1
     state.messages.push(message)
   },
@@ -32,8 +31,29 @@ export const mutations = {
 }
 
 export const actions = {
-  async add({ commit }: ModuleActionContext, message: Alert) {
-    commit('ADD_ALERT', message)
+  async success({ commit }: ModuleActionContext, text: string) {
+    commit('ADD_ALERT', {
+      type: 'success',
+      text,
+    })
+  },
+  async info({ commit }: ModuleActionContext, text: string) {
+    commit('ADD_ALERT', {
+      type: 'info',
+      text,
+    })
+  },
+  async warning({ commit }: ModuleActionContext, text: string) {
+    commit('ADD_ALERT', {
+      type: 'warning',
+      text,
+    })
+  },
+  async error({ commit }: ModuleActionContext, text: string) {
+    commit('ADD_ALERT', {
+      type: 'error',
+      text,
+    })
   },
   async confirmed({ commit }: ModuleActionContext) {
     commit('DELETE_ALERT')
