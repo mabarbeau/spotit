@@ -3,7 +3,10 @@ import { getters, mutations, actions } from './confirm'
 const { SET_MESSAGE, DELETE_MESSAGE } = mutations
 const { confirm, confirmed, canceled } = actions
 
-const message = 'test message'
+const message = {
+  title: 'title',
+  text: 'text',
+}
 const state = {
   message: undefined,
   resolve: undefined,

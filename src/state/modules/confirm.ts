@@ -1,8 +1,12 @@
 import { ActionContext } from 'vuex'
 import { RootState } from '../store'
 
+interface Confirm {
+  title: string
+  text?: string
+}
 interface ConfirmModule {
-  message: string | undefined
+  message: Confirm | undefined
   resolve: ((result: boolean) => void) | undefined
 }
 
@@ -19,8 +23,9 @@ export const mutations = {
   SET_RESOLVE(state: ConfirmModule, resolve: (result: boolean) => void) {
     state.resolve = resolve
   },
-  SET_MESSAGE(state: ConfirmModule, message: string) {
-    state.message = message
+  SET_MESSAGE(state: ConfirmModule, payload: Confirm | string) {
+    if (typeof payload === 'string') state.message = { title: payload }
+    else state.message = payload
   },
   DELETE_MESSAGE(state: ConfirmModule) {
     state.message = undefined
@@ -28,8 +33,8 @@ export const mutations = {
 }
 
 export const actions = {
-  async confirm({ commit }: ModuleActionContext, message: string) {
-    commit('SET_MESSAGE', message)
+  async confirm({ commit }: ModuleActionContext, payload: Confirm | string) {
+    commit('SET_MESSAGE', payload)
     return new Promise((resolve) => {
       commit('SET_RESOLVE', resolve)
     })

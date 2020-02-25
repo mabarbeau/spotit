@@ -1,19 +1,24 @@
 <template>
-  <v-dialog v-model="isMessage" width="500">
+  <v-dialog v-model="isMessage" persistent width="500">
     <v-card>
-      <v-card-title class="headline grey lighten-2" primary-title>
-        Privacy Policy
+      <v-card-title
+        v-if="message && 'title' in message"
+        class="headline"
+        primary-title
+      >
+        {{ message.title }}
       </v-card-title>
-      <v-divider></v-divider>
-      <v-card-text>
-        {{ message }}
+      <v-card-text v-if="message && 'text' in message" class="text--primary">
+        <div>
+          {{ message.text }}
+        </div>
       </v-card-text>
       <v-card-actions>
-        <v-btn id="no" color="primary" text @click="canceled">
+        <v-btn class="no" color="primary" text @click="canceled">
           Cancel
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn id="yes" color="primary" text @click="confirmed">
+        <v-btn class="yes" color="primary" text @click="confirmed">
           Ok
         </v-btn>
       </v-card-actions>
@@ -31,8 +36,8 @@ export default Vue.extend({
       get(): boolean {
         return this.message !== undefined
       },
-      set(): void {
-        if (this.message === false) this.canceled()
+      set(value): void {
+        if (value === false) this.canceled()
       },
     },
     ...mapState('confirm', ['message']),

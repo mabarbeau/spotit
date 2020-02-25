@@ -1,4 +1,4 @@
-import { shallowMount, createLocalVue } from '@vue/test-utils'
+import { mount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Vuetify from 'vuetify'
 import Confirm from './Confirm.vue'
@@ -22,7 +22,10 @@ describe('Confirm.vue', () => {
     confirm = {
       namespaced: true,
       state: {
-        message: 'test message',
+        message: {
+          title: 'title',
+          text: 'text',
+        },
       },
       actions,
     }
@@ -34,22 +37,22 @@ describe('Confirm.vue', () => {
   })
 
   it('dispatches "canceled" event when "Cancel" button is clicked', () => {
-    const wrapper = shallowMount(Confirm, {
-      store,
-      vuetify,
+    const wrapper = mount(Confirm, {
       localVue,
+      vuetify,
+      store,
     })
-    wrapper.find('#no').trigger('click')
+    wrapper.find('.no').trigger('click')
     expect(actions.canceled).toHaveBeenCalled()
   })
 
   it('dispatches "confirmed" event when "Ok" button is clicked', () => {
-    const wrapper = shallowMount(Confirm, {
-      store,
-      vuetify,
+    const wrapper = mount(Confirm, {
       localVue,
+      vuetify,
+      store,
     })
-    wrapper.find('#yes').trigger('click')
+    wrapper.find('.yes').trigger('click')
     expect(actions.confirmed).toHaveBeenCalled()
   })
 })
