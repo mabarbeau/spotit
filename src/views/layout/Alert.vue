@@ -1,27 +1,32 @@
 <template>
-  <div v-show="messages.length" :class="$style.wrapper">
-    <v-alert
-      :class="$style.alert"
-      :type="message ? message.type : undefined"
-      :icon="false"
+  <transition name="slide-fade">
+    <v-card
+      v-show="show"
+      :class="$style.wrapper"
+      class="mx-auto darken-2"
+      :color="message ? message.type : ''"
       dark
-      elevation="3"
+      elevation="4"
     >
-      <div :class="$style.header">
-        {{ total + 1 - messages.length }} of {{ total }}
-      </div>
-      <v-row align="center">
-        <v-col class="grow">
-          {{ message ? message.text : '' }}
-        </v-col>
-        <v-col class="shrink">
-          <button class="yes ml-5" @click="confirmed">
-            Ok
-          </button>
-        </v-col>
-      </v-row>
-    </v-alert>
-  </div>
+      <v-card-text class="py-3">
+        <v-row align="center">
+          <v-col class="grow py-0">
+            <div v-if="total > 1" class="py-0 overline mb-1">
+              {{ total + 1 - messages.length }} of {{ total }}
+            </div>
+            <p class="mb-0">
+              {{ message ? message.text : '' }}
+            </p>
+          </v-col>
+          <v-col class="shrink py-0">
+            <v-btn icon small @click="confirmed">
+              <v-icon>mdi-close</v-icon>
+            </v-btn>
+          </v-col>
+        </v-row>
+      </v-card-text>
+    </v-card>
+  </transition>
 </template>
 
 <script lang="ts">
@@ -30,7 +35,7 @@ import { mapState, mapActions } from 'vuex'
 
 export default Vue.extend({
   computed: {
-    ...mapState('alert', ['messages', 'total']),
+    ...mapState('alert', ['show', 'messages', 'total']),
     message(): App.Alert | undefined {
       if (this.messages === undefined || !this.messages.length) return undefined
       return [...this.messages].pop()
@@ -44,26 +49,8 @@ export default Vue.extend({
 <style module>
 .wrapper {
   position: absolute;
-  bottom: 0;
+  bottom: 20px;
   left: 20px;
-  min-width: 365px;
-  max-width: 80%;
-  opacity: 1;
-  transform: translateX(0);
-  transition: color 1s, border 1s;
-}
-.alert {
-  padding-top: 27px !important;
-  padding-bottom: 0px !important;
-}
-.header {
-  padding: 4px 14px 2px 14px;
-  position: absolute;
-  top: 0;
-  right: 0;
-  left: 0;
-  font-size: 13px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.2);
-  background: rgba(255, 255, 255, 0.15);
+  width: 365px;
 }
 </style>

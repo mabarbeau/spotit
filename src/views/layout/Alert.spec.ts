@@ -38,7 +38,7 @@ describe('Alert.vue', () => {
       vuetify,
       store,
     })
-    wrapper.find('.yes').trigger('click')
+    wrapper.find('.v-btn').trigger('click')
     expect(actions.confirmed).toHaveBeenCalled()
   })
 })

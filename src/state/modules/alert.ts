@@ -4,6 +4,7 @@ import { ActionContext } from 'vuex'
 interface AlertModule {
   messages: App.Alert[]
   total: number
+  show: boolean
 }
 
 type ModuleActionContext = ActionContext<AlertModule, RootState>
@@ -11,6 +12,7 @@ type ModuleActionContext = ActionContext<AlertModule, RootState>
 export const state: AlertModule = {
   messages: [],
   total: 0,
+  show: false,
 }
 
 export const getters = {
@@ -21,12 +23,20 @@ export const getters = {
 
 export const mutations = {
   ADD_ALERT(state: AlertModule, message: App.Alert) {
+    state.show = true
     state.total = state.total + 1
     state.messages.push(message)
   },
-  DELETE_ALERT(state: AlertModule) {
-    state.messages.pop()
-    if (state.messages.length === 0) state.total = 0
+  async DELETE_ALERT(state: AlertModule) {
+    let time = 0
+    if (state.messages.length === 1) {
+      state.show = false
+      state.total = 0
+      time = 1000
+    }
+    setTimeout(function() {
+      state.messages.pop()
+    }, time)
   },
 }
 

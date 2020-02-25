@@ -7,9 +7,7 @@
           <router-view v-if="!error" />
           <app-error v-else />
         </transition>
-        <transition name="slide-fade">
-          <app-alert v-show="alert.length" />
-        </transition>
+        <app-alert v-show="alert.length" />
       </v-content>
       <app-footer />
     </div>
