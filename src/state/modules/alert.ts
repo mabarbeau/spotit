@@ -31,11 +31,13 @@ export const mutations = {
     let time = 0
     if (state.messages.length === 1) {
       state.show = false
-      state.total = 0
       time = 1000
     }
     setTimeout(function() {
       state.messages.pop()
+      if (state.messages.length === 0) {
+        state.total = 0
+      }
     }, time)
   },
 }
