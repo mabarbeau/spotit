@@ -19,7 +19,7 @@
             </p>
           </v-col>
           <v-col class="shrink py-0">
-            <v-btn icon small @click="confirmed">
+            <v-btn icon small @click="dismiss">
               <v-icon>mdi-close</v-icon>
             </v-btn>
           </v-col>
@@ -42,7 +42,7 @@ export default Vue.extend({
     },
   },
   methods: {
-    ...mapActions('alert', ['confirmed']),
+    ...mapActions('alert', ['dismiss']),
   },
 })
 </script>

@@ -16,7 +16,7 @@ describe('Alert.vue', () => {
   beforeEach(() => {
     vuetify = new Vuetify()
     actions = {
-      confirmed: jest.fn(),
+      dismiss: jest.fn(),
     }
     alert = {
       namespaced: true,
@@ -32,13 +32,13 @@ describe('Alert.vue', () => {
     })
   })
 
-  it('confirm dispatches "confirmed" event when "Ok" button is clicked', () => {
+  it('confirm dispatches "dismiss" event when "Ok" button is clicked', () => {
     const wrapper = mount(Alert, {
       localVue,
       vuetify,
       store,
     })
     wrapper.find('.v-btn').trigger('click')
-    expect(actions.confirmed).toHaveBeenCalled()
+    expect(actions.dismiss).toHaveBeenCalled()
   })
 })

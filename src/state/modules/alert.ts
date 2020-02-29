@@ -22,23 +22,19 @@ export const getters = {
 }
 
 export const mutations = {
+  HIDE(state: AlertModule) {
+    state.show = false
+  },
   ADD_ALERT(state: AlertModule, message: App.Alert) {
     state.show = true
     state.total = state.total + 1
     state.messages.push(message)
   },
-  async DELETE_ALERT(state: AlertModule) {
-    let time = 0
-    if (state.messages.length === 1) {
-      state.show = false
-      time = 1000
+  DELETE_ALERT(state: AlertModule) {
+    state.messages.pop()
+    if (state.messages.length === 0) {
+      state.total = 0
     }
-    setTimeout(function() {
-      state.messages.pop()
-      if (state.messages.length === 0) {
-        state.total = 0
-      }
-    }, time)
   },
 }
 
@@ -67,7 +63,14 @@ export const actions = {
       text,
     })
   },
-  async confirmed({ commit }: ModuleActionContext) {
-    commit('DELETE_ALERT')
+  async dismiss({ commit }: ModuleActionContext) {
+    let time = 0
+    if (state.messages.length === 1) {
+      commit('HIDE')
+      time = 1000
+    }
+    setTimeout(function() {
+      commit('DELETE_ALERT')
+    }, time)
   },
 }

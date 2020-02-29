@@ -44,7 +44,6 @@ describe('mutations', () => {
       show: true,
     }
     DELETE_ALERT(state)
-    jest.runAllTimers()
     expect(state.total).toBe(2)
   })
   it('resets total when all messages are removed', () => {
@@ -54,9 +53,7 @@ describe('mutations', () => {
       show: true,
     }
     DELETE_ALERT(state)
-    jest.runAllTimers()
     DELETE_ALERT(state)
-    jest.runAllTimers()
     expect(state.total).toBe(0)
   })
 })
