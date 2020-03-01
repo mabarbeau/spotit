@@ -19,14 +19,33 @@
     </v-navigation-drawer>
     <v-app-bar app color="indigo" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
-      <img alt="Spotit logo" src="@/assets/logo.png" class="h-8" />
-      <v-toolbar-title>Spotit</v-toolbar-title>
+      <img alt="Spotit logo" src="@/assets/logo.png" class="h-8 px-2" />
+      <v-toolbar-title style="width: 300px">Spotit</v-toolbar-title>
+      <v-text-field
+        flat
+        solo-inverted
+        hide-details
+        prepend-inner-icon="mdi-magnify"
+        label="Search"
+        class="hidden-sm-and-down"
+      />
+      <v-spacer />
+      <v-btn icon>
+        <v-icon>mdi-bell</v-icon>
+      </v-btn>
+      <v-btn v-if="me" icon :to="{ name: 'account' }">
+        <img alt="Avatar" :src="me.picture" class="h-8 px-2" />
+      </v-btn>
+      <v-btn v-else icon :to="{ name: 'account' }">
+        <v-icon color="white" :size="30">mdi-account-circle</v-icon>
+      </v-btn>
     </v-app-bar>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
+import { mapState } from 'vuex'
 
 export default Vue.extend({
   data() {
@@ -55,13 +74,6 @@ export default Vue.extend({
           },
         },
         {
-          label: 'Account',
-          icon: 'mdi-home',
-          to: {
-            name: 'account',
-          },
-        },
-        {
           label: 'Users',
           icon: 'mdi-home',
           to: {
@@ -70,6 +82,9 @@ export default Vue.extend({
         },
       ],
     }
+  },
+  computed: {
+    ...mapState('auth', ['me']),
   },
 })
 </script>

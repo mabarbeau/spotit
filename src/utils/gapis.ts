@@ -11,7 +11,7 @@ export default function render(id: string, params = {}) {
   })
   init.then(() => {
     params = {
-      scope: 'profile email',
+      scope: 'profile email openid',
       width: 240,
       height: 50,
       longtitle: true,
