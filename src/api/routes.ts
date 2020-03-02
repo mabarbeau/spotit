@@ -1,4 +1,5 @@
 const routes: any = {
+  me: '/me',
   auth: {
     login: '/auth/login',
   },

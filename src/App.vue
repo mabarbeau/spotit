@@ -34,11 +34,13 @@ export default Vue.extend({
     AppAlert,
   },
   computed: {
+    ...mapState('auth', ['me']),
     ...mapState('errors', ['error']),
     ...mapState('alert', { alert: 'messages' }),
   },
   watch: {
     $route() {
+      this.$store.dispatch('errors/getMe')
       this.$store.dispatch('errors/clear')
     },
   },

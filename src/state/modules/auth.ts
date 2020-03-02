@@ -20,11 +20,20 @@ export const getters = {}
 
 export const mutations = {
   SET_ME(state: AuthModule, user: User) {
-    state.me = user
+    if (user) state.me = user
   },
 }
 
 export const actions = {
+  async getMe({ commit, dispatch }: ModuleActionContext) {
+    await Api.post('auth.me')
+      .then((response) => {
+        commit('SET_ME', response.user)
+      })
+      .catch((error: Error) => {
+        dispatch('errors/set', error, { root: true })
+      })
+  },
   async login({ commit, dispatch }: ModuleActionContext, payload: any) {
     await Api.post('auth.login', {
       payload,
