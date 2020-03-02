@@ -40,7 +40,7 @@ export default Vue.extend({
   },
   watch: {
     $route() {
-      this.$store.dispatch('errors/getMe')
+      this.$store.dispatch('auth/getMe')
       this.$store.dispatch('errors/clear')
     },
   },
