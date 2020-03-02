@@ -1,16 +1,37 @@
-import { mutations } from './auth'
-
+import { getters, mutations, actions } from './auth'
 const { SET_ME } = mutations
+const { getMe, login } = actions
+
+const User = {
+  name: 'Test User',
+}
+const state = {
+  me: undefined,
+}
 
 describe('mutations', () => {
-  const User = {
-    name: 'Test User',
-  }
   it('assigns a user to me', () => {
-    const state = {
-      me: undefined,
-    }
     SET_ME(state, User)
     expect(state.me).toEqual(User)
   })
 })
+
+// describe('actions', () => {
+//   let actions
+//   beforeEach(() => {
+//     actions = {
+//       loadUsers: jest.fn(),
+//     }
+//   })
+//   const context = {
+//     dispatch: jest.fn(),
+//     commit: jest.fn(),
+//     state,
+//     getters,
+//     rootState: {},
+//     rootGetters: {},
+//   }
+//   it('resolves when "confirmed" is called', () => {
+//     const response = getMe(context)
+//   })
+// })

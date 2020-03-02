@@ -26,9 +26,13 @@ export const mutations = {
 
 export const actions = {
   async getMe({ commit, dispatch }: ModuleActionContext) {
-    await Api.post('auth.me')
+    await Api.get('me')
       .then((response) => {
-        commit('SET_ME', response.user)
+        if (!response.user) {
+          dispatch('refresh')
+        } else {
+          commit('SET_ME', response.user)
+        }
       })
       .catch((error: Error) => {
         dispatch('errors/set', error, { root: true })
@@ -38,6 +42,15 @@ export const actions = {
     await Api.post('auth.login', {
       payload,
     })
+      .then((user) => {
+        commit('SET_ME', user)
+      })
+      .catch((error: Error) => {
+        dispatch('errors/set', error, { root: true })
+      })
+  },
+  async refresh({ commit, dispatch }: ModuleActionContext) {
+    await Api.post('auth.refresh')
       .then((user) => {
         commit('SET_ME', user)
       })
