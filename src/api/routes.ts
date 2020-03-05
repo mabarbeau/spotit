@@ -12,6 +12,12 @@ const routes: any = {
     all: '/spots',
     find: '/spots/:slug',
   },
+  updates: '/updates',
+  notifications: {
+    all: '/notifications',
+    create: '/notifications',
+    delete: '/notifications/:id',
+  },
 }
 
 export default routes
