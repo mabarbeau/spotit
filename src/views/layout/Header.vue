@@ -30,8 +30,11 @@
         class="hidden-sm-and-down"
       />
       <v-spacer />
-      <v-btn icon>
+      <v-btn icon :to="{ name: 'account' }">
         <v-icon>mdi-bell</v-icon>
+        <span v-if="notificationsTotal">
+          {{ notificationsTotal }}
+        </span>
       </v-btn>
       <v-btn v-if="me" icon :to="{ name: 'account' }">
         <img alt="Avatar" :src="me.picture" class="h-8 px-2" />
@@ -45,7 +48,7 @@
 
 <script lang="ts">
 import Vue from 'vue'
-import { mapState } from 'vuex'
+import { mapState, mapGetters } from 'vuex'
 
 export default Vue.extend({
   data() {
@@ -85,6 +88,11 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('auth', ['me']),
+    ...mapState('notifications', ['notifications']),
+    ...mapGetters('notifications', { notificationsTotal: 'getTotal' }),
+  },
+  created() {
+    this.$store.dispatch('notifications/getNotifications')
   },
 })
 </script>

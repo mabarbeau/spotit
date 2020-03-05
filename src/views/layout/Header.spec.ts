@@ -8,27 +8,47 @@ const localVue = createLocalVue()
 localVue.use(Vuex)
 
 describe('Header.vue', () => {
-  let actions: any
+  let auth: any
   let confirm: any
+  let notifications: any
   let store: any
   let vuetify: any
 
   beforeEach(() => {
     vuetify = new Vuetify()
-    actions = {
-      login: jest.fn(),
-    }
     confirm = {
       namespaced: true,
       state: {
         me: undefined,
         users: [],
       },
-      actions,
+      actions: {
+        login: jest.fn(),
+      },
+    }
+    notifications = {
+      namespaced: true,
+      state: {
+        notifications: undefined,
+      },
+      actions: {
+        getNotifications: jest.fn(),
+      },
+    }
+    auth = {
+      namespaced: true,
+      state: {
+        me: undefined,
+      },
+      actions: {
+        getMe: jest.fn(),
+      },
     }
     store = new Vuex.Store({
       modules: {
+        auth,
         confirm,
+        notifications,
       },
     })
   })
