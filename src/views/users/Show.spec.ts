@@ -1,6 +1,7 @@
 import { shallowMount, createLocalVue } from '@vue/test-utils'
 import Vuex from 'vuex'
 import Show from './Show.vue'
+import Vuetify from 'vuetify'
 
 const localVue = createLocalVue()
 
@@ -10,8 +11,10 @@ describe('Show.vue', () => {
   let actions: any
   let users: any
   let store: any
+  let vuetify: any
 
   beforeEach(() => {
+    vuetify = new Vuetify()
     actions = {
       loadUser: jest.fn(),
     }
@@ -35,6 +38,7 @@ describe('Show.vue', () => {
     shallowMount(Show, {
       store,
       localVue,
+      vuetify,
       propsData: {
         id: 'fake-uid',
       },
