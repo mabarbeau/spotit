@@ -37,9 +37,14 @@
         </span>
       </v-btn>
       <v-btn v-if="me" icon :to="{ name: 'account' }">
-        <img alt="Avatar" :src="me.picture" class="h-8 px-2" />
+        <img
+          :class="$style.avatar"
+          alt="Avatar"
+          :src="me.picture"
+          class="h-8 px-2"
+        />
       </v-btn>
-      <v-btn v-else icon :to="{ name: 'account' }">
+      <v-btn v-else icon :to="{ name: 'login' }">
         <v-icon color="white" :size="30">mdi-account-circle</v-icon>
       </v-btn>
     </v-app-bar>
@@ -96,3 +101,9 @@ export default Vue.extend({
   },
 })
 </script>
+
+<style module>
+.avatar {
+  border-radius: 100%;
+}
+</style>
