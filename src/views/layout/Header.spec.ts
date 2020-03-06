@@ -41,7 +41,9 @@ describe('Header.vue', () => {
     auth = {
       namespaced: true,
       state: {
-        me: undefined,
+        me: {
+          name: 'Test User',
+        },
       },
       actions: {
         getMe: jest.fn(),

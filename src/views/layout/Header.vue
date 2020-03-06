@@ -97,7 +97,7 @@ export default Vue.extend({
     ...mapGetters('notifications', { notificationsTotal: 'getTotal' }),
   },
   created() {
-    this.$store.dispatch('notifications/getNotifications')
+    if (this.me) this.$store.dispatch('notifications/getNotifications')
   },
 })
 </script>
