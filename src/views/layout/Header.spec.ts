@@ -34,6 +34,9 @@ describe('Header.vue', () => {
       actions: {
         getNotifications: jest.fn(),
       },
+      getters: {
+        getTotal: jest.fn(),
+      },
     }
     auth = {
       namespaced: true,
@@ -62,5 +65,16 @@ describe('Header.vue', () => {
       stubs: ['router-link'],
     })
     expect(wrapper.text()).toContain(msg)
+  })
+
+  it('fetches notifications', () => {
+    shallowMount(Header, {
+      localVue,
+      vuetify,
+      store,
+      stubs: ['router-link'],
+    })
+    expect(notifications.actions.getNotifications).toBeCalled()
+    expect(notifications.getters.getTotal).toBeCalled()
   })
 })
