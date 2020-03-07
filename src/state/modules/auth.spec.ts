@@ -6,7 +6,7 @@ const User = {
   name: 'Test User',
 }
 const state = {
-  me: undefined,
+  me: null,
 }
 
 describe('mutations', () => {
