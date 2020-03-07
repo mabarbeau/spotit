@@ -15,7 +15,10 @@ const routes: any = {
   updates: '/updates',
   notifications: {
     all: '/notifications',
+    count: '/notifications/count',
     create: '/notifications',
+    read: '/notifications/:id/read',
+    unread: '/notifications/:id/unread',
     delete: '/notifications/:id',
   },
 }

@@ -40,9 +40,13 @@ export default Vue.extend({
   },
   watch: {
     $route() {
-      this.$store.dispatch('auth/getMe')
       this.$store.dispatch('errors/clear')
     },
+  },
+  created() {
+    this.$store
+      .dispatch('auth/getMe')
+      .then(() => this.$store.dispatch('notifications/countUnread'))
   },
 })
 </script>

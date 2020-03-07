@@ -68,15 +68,4 @@ describe('Header.vue', () => {
     })
     expect(wrapper.text()).toContain(msg)
   })
-
-  it('fetches notifications', () => {
-    shallowMount(Header, {
-      localVue,
-      vuetify,
-      store,
-      stubs: ['router-link'],
-    })
-    expect(notifications.actions.getNotifications).toBeCalled()
-    expect(notifications.getters.getTotal).toBeCalled()
-  })
 })

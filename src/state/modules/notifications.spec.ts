@@ -5,18 +5,17 @@ const { SET_NOTIFICATIONS } = mutations
 describe('mutations', () => {
   const Notification = {
     message: 'Test Notification',
-    type: 'info',
     read: false,
   }
   const NotificationsCollection = {
     data: [Notification],
     currentPage: 1,
-    firstPageUrl: '/spots/1',
+    firstPageUrl: '/notifications/?page=1',
     from: 1,
     lastPage: 10,
-    lastPageUrl: '/spots/10',
-    nextPageUrl: '/spots/2',
-    path: '/spots/',
+    lastPageUrl: '/notifications/?page=10',
+    nextPageUrl: '/notifications/?page=2',
+    path: '/notifications/',
     perPage: 10,
     prevPageUrl: null,
     to: '?',
@@ -24,8 +23,9 @@ describe('mutations', () => {
   }
   const state = {
     notifications: NotificationsCollection,
+    unread: 0,
   }
-  it('sets a collection of spot', () => {
+  it('sets a collection of notifications', () => {
     SET_NOTIFICATIONS(state, NotificationsCollection)
     expect(state.notifications).toEqual(NotificationsCollection)
   })

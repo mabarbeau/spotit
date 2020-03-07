@@ -40,6 +40,14 @@ export default new Router({
         import(/* webpackChunkName: "account" */ '@/views/Account.vue'),
     },
     {
+      path: '/notifications',
+      name: 'notifications',
+      component: () =>
+        import(
+          /* webpackChunkName: "notifications" */ '@/views/Notifications.vue'
+        ),
+    },
+    {
       path: '/login',
       name: 'login',
       component: () =>

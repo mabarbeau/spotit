@@ -30,10 +30,10 @@
         class="hidden-sm-and-down"
       />
       <v-spacer />
-      <v-btn icon :to="{ name: 'account' }">
+      <v-btn v-if="me" icon color="white" :to="{ name: 'notifications' }">
         <v-icon>mdi-bell</v-icon>
-        <span v-if="notificationsTotal">
-          {{ notificationsTotal }}
+        <span v-if="unread">
+          {{ unread }}
         </span>
       </v-btn>
       <v-btn v-if="me" icon :to="{ name: 'account' }">
@@ -93,11 +93,7 @@ export default Vue.extend({
   },
   computed: {
     ...mapState('auth', ['me']),
-    ...mapState('notifications', ['notifications']),
-    ...mapGetters('notifications', { notificationsTotal: 'getTotal' }),
-  },
-  created() {
-    if (this.me) this.$store.dispatch('notifications/getNotifications')
+    ...mapState('notifications', ['notifications', 'unread']),
   },
 })
 </script>
