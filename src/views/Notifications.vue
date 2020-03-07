@@ -12,7 +12,7 @@
           v-for="notification in notifications.data"
           :key="notification.id"
           :icon="false"
-          :type="!notification.read ? 'info' : ''"
+          :type="!notification.read ? 'info' : undefined"
           :text="!notification.read"
           elevation="3"
         >
