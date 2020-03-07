@@ -20,7 +20,8 @@
     <v-app-bar app color="indigo" dark>
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <img alt="Spotit logo" src="@/assets/logo.png" class="h-8 px-2" />
-      <v-toolbar-title style="width: 300px">Spotit</v-toolbar-title>
+      <v-toolbar-title>Spotit</v-toolbar-title>
+      <v-spacer />
       <v-text-field
         flat
         solo-inverted
