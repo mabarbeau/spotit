@@ -22,14 +22,7 @@
       <img alt="Spotit logo" src="@/assets/logo.png" class="h-8 px-2" />
       <v-toolbar-title>Spotit</v-toolbar-title>
       <v-spacer />
-      <v-text-field
-        flat
-        solo-inverted
-        hide-details
-        prepend-inner-icon="mdi-magnify"
-        label="Search"
-        class="hidden-sm-and-down"
-      />
+      <base-search />
       <v-spacer />
       <v-btn v-if="me" icon color="white" :to="{ name: 'notifications' }">
         <v-icon>mdi-bell</v-icon>

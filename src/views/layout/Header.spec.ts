@@ -64,7 +64,7 @@ describe('Header.vue', () => {
       localVue,
       vuetify,
       store,
-      stubs: ['router-link'],
+      stubs: ['router-link', 'base-search'],
     })
     expect(wrapper.text()).toContain(msg)
   })

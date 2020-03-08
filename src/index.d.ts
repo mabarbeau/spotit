@@ -16,3 +16,7 @@ declare namespace App {
     text: string
   }
 }
+declare interface Window {
+  gmapsCallback: () => void
+  google: any
+}
