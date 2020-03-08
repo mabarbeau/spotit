@@ -15,7 +15,9 @@ export default function render(id: string, params = {}) {
       width: 240,
       height: 50,
       longtitle: true,
-      theme: 'dark',
+      theme: window.matchMedia('(prefers-color-scheme: dark)').matches
+        ? 'dark'
+        : 'light',
       ...params,
     }
     // @ts-ignore
