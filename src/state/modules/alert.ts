@@ -67,7 +67,7 @@ export const actions = {
     let time = 0
     if (state.messages.length === 1) {
       commit('HIDE')
-      time = 1000
+      time = 300
     }
     setTimeout(function() {
       commit('DELETE_ALERT')
