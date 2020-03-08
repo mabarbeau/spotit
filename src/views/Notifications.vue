@@ -2,7 +2,7 @@
   <div class="pt-4 min-h-full">
     <v-container>
       <h1 class="headline pb-2">
-        Notification
+        Notifications
       </h1>
       <div v-if="isLoading === true">
         Loading
