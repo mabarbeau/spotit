@@ -17,7 +17,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app color="indigo" dark>
+    <v-app-bar app color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <img alt="Spotit logo" src="@/assets/logo.png" class="h-8 px-2" />
       <v-toolbar-title>Spotit</v-toolbar-title>

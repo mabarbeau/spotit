@@ -1,5 +1,5 @@
 <template>
-  <div class="grey pt-4 lighten-5 min-h-full">
+  <div class="pt-4 min-h-full">
     <v-container>
       <h1 class="headline pb-2">
         Notification

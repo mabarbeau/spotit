@@ -58,9 +58,3 @@ export default Vue.extend({
   },
 })
 </script>
-
-<style>
-a {
-  color: blue !important;
-}
-</style>

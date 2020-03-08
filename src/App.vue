@@ -1,5 +1,8 @@
 <template>
-  <v-app id="app">
+  <v-app
+    id="app"
+    :style="{ background: $vuetify.theme.themes[theme].background }"
+  >
     <div class="min-h-screen flex flex-col">
       <app-header />
       <v-content>
@@ -34,6 +37,9 @@ export default Vue.extend({
     AppAlert,
   },
   computed: {
+    theme() {
+      return this.$vuetify.theme.dark ? 'dark' : 'light'
+    },
     ...mapState('auth', ['me']),
     ...mapState('errors', ['error']),
     ...mapState('alert', { alert: 'messages' }),

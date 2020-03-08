@@ -3,9 +3,8 @@
     <v-card
       v-show="show"
       :class="$style.wrapper"
-      class="mx-auto darken-2"
+      class="mx-auto"
       :color="message ? message.type : ''"
-      dark
       elevation="4"
     >
       <v-card-text class="py-3">
