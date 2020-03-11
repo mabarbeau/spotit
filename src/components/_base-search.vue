@@ -14,7 +14,7 @@
     hide-no-data
     @input="submit"
   >
-    <template v-slot:append-item>
+    <template v-if="$route.name !== 'spots'" v-slot:prepend-item>
       <img
         :src="googleLogo"
         alt="Powered by Google"
