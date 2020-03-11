@@ -13,7 +13,7 @@
       />
     </section>
     <section>
-      <base-map :markers="markers" />
+      <base-map :address="search" :markers="markers" />
     </section>
   </div>
 </template>
@@ -23,7 +23,14 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 
 export default Vue.extend({
-  name: 'SpotsIndex',
+  data(): {
+    [key: string]: any
+    search: null | string
+  } {
+    return {
+      search: null,
+    }
+  },
   computed: {
     ...mapState('spots', ['spots']),
     markers(): google.maps.LatLngLiteral[] {
@@ -44,11 +51,16 @@ export default Vue.extend({
     },
   },
   watch: {
-    $route() {
-      this.load()
+    '$route.query.search': {
+      immediate: true,
+      handler(newVal: string, oldVal: string) {
+        if (newVal != oldVal) {
+          this.search = newVal
+        }
+      },
     },
   },
-  mounted() {
+  created() {
     this.load()
   },
   methods: {

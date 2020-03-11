@@ -19,6 +19,10 @@ function instanceOfLatLngLiteral(
 
 export default Vue.extend({
   props: {
+    address: {
+      type: String,
+      default: 'Austria',
+    },
     markers: {
       type: Array,
       default() {
@@ -37,27 +41,48 @@ export default Vue.extend({
       map: undefined,
     }
   },
-  async mounted() {
+  watch: {
+    address(value: string) {
+      this.geocode(value)
+    },
+  },
+  async created() {
     try {
-      const google: any = await gmapsInit()
+      await gmapsInit()
       this.map = new google.maps.Map(this.$el)
+      this.geocode(this.address)
+    } catch (error) {
+      this.error = error.toString()
+    }
+  },
+  methods: {
+    geocode(address: string) {
+      if (!address) return
+      const geocoder: google.maps.Geocoder = new google.maps.Geocoder()
+      geocoder.geocode({ address }, (results: Array<any>, status: any) => {
+        if (status !== 'OK' || !results[0]) {
+          throw new Error(status)
+        }
+        if (this.map) {
+          this.map.setCenter(results[0].geometry.location)
+          this.map.fitBounds(results[0].geometry.viewport)
+        }
+      })
+    },
+    fitBounds(markers: google.maps.LatLngLiteral[]) {
       const bounds = new google.maps.LatLngBounds()
-      if (this.map && this.markers) {
-        this.markers.forEach((marker) => {
+      if (this.map && markers) {
+        markers.forEach((marker) => {
           bounds.extend(marker)
           new google.maps.Marker({
             position: marker,
             map: this.map,
           })
         })
-
         this.map.fitBounds(bounds)
         this.map.panToBounds(bounds)
       }
-    } catch (error) {
-      if (error instanceof Error) this.error = error.toString()
-      else this.error = 'Error loading map'
-    }
+    },
   },
 })
 </script>
@@ -65,6 +90,6 @@ export default Vue.extend({
 <style>
 .BaseMap {
   width: 100%;
-  height: 505px;
+  height: 100%;
 }
 </style>
