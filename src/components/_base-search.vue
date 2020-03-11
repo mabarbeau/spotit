@@ -12,7 +12,7 @@
     label="Search"
     class="hidden-sm-and-down"
     hide-no-data
-    @change="submit"
+    @input="submit"
   >
     <template v-slot:append-item>
       <img
@@ -53,7 +53,7 @@ export default Vue.extend({
       val && val !== this.select && this.querySelections(val)
     },
     '$route.query.search'(newVal: string, oldVal: string) {
-      if (newVal != oldVal) {
+      if (newVal && newVal != oldVal) {
         this.search = newVal
       }
     },
