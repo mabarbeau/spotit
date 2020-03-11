@@ -10,7 +10,7 @@
           <router-view v-if="!error" />
           <app-error v-else />
         </transition>
-        <app-alert v-show="alert.length" />
+        <app-alert v-if="alert.length" />
       </v-content>
       <app-footer />
     </div>

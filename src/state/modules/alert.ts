@@ -22,11 +22,10 @@ export const getters = {
 }
 
 export const mutations = {
-  HIDE(state: AlertModule) {
-    state.show = false
+  SHOW(state: AlertModule, show: boolean) {
+    state.show = show
   },
   ADD_ALERT(state: AlertModule, message: App.Alert) {
-    state.show = true
     state.total = state.total + 1
     state.messages.push(message)
   },
@@ -39,34 +38,16 @@ export const mutations = {
 }
 
 export const actions = {
-  async success({ commit }: ModuleActionContext, text: string) {
-    commit('ADD_ALERT', {
-      type: 'success',
-      text,
-    })
-  },
-  async info({ commit }: ModuleActionContext, text: string) {
-    commit('ADD_ALERT', {
-      type: 'info',
-      text,
-    })
-  },
-  async warning({ commit }: ModuleActionContext, text: string) {
-    commit('ADD_ALERT', {
-      type: 'warning',
-      text,
-    })
-  },
-  async error({ commit }: ModuleActionContext, text: string) {
-    commit('ADD_ALERT', {
-      type: 'error',
-      text,
-    })
+  async create({ commit }: ModuleActionContext, alert: App.Alert) {
+    commit('ADD_ALERT', alert)
+    setTimeout(function() {
+      commit('SHOW', true)
+    }, 100)
   },
   async dismiss({ commit }: ModuleActionContext) {
     let time = 0
     if (state.messages.length === 1) {
-      commit('HIDE')
+      commit('SHOW', false)
       time = 300
     }
     setTimeout(function() {

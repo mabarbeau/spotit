@@ -45,17 +45,17 @@ export default Vue.extend({
     }
   },
   methods: {
-    async success(message: string) {
-      await this.$store.dispatch('alert/success', message)
+    async success(text: string) {
+      await this.$store.dispatch('alert/create', { type: 'success', text })
     },
-    async info(message: string) {
-      await this.$store.dispatch('alert/info', message)
+    async info(text: string) {
+      await this.$store.dispatch('alert/create', { type: 'info', text })
     },
-    async warning(message: string) {
-      await this.$store.dispatch('alert/warning', message)
+    async warning(text: string) {
+      await this.$store.dispatch('alert/create', { type: 'warning', text })
     },
-    async error(message: string) {
-      await this.$store.dispatch('alert/error', message)
+    async error(text: string) {
+      await this.$store.dispatch('alert/create', { type: 'error', text })
     },
     async confirm(message: string) {
       await this.$store.dispatch('confirm/confirm', message).then((result) => {
