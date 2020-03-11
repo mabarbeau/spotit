@@ -1,6 +1,6 @@
 <template>
-  <div class="w-full h-full relative">
-    <v-card width="256" class="absolute z-10 h-full rounded-none">
+  <div class="w-full h-full flex">
+    <v-card width="256" class="h-full rounded-none">
       <v-navigation-drawer permanent>
         <v-list-item>
           <v-list-item-content>
