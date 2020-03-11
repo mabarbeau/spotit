@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-navigation-drawer v-model="drawer" app>
+    <v-navigation-drawer v-model="drawer" app class="z-50">
       <v-list dense>
         <v-list-item
           v-for="(item, index) in navigation"

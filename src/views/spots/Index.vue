@@ -1,20 +1,34 @@
 <template>
-  <div v-if="spots">
-    <h1>
-      Spots Index
-      {{ spots.currentPage }}
-    </h1>
-    <section>
-      <base-pagination
-        :list="spots"
-        :name="$route.name"
-        :child-name="`${$route.name} show`"
-        text="title"
-      />
-    </section>
-    <section>
-      <base-map :address="search" :markers="markers" />
-    </section>
+  <div class="w-full h-full relative">
+    <v-card width="256" class="absolute z-10 h-full rounded-none">
+      <v-navigation-drawer permanent>
+        <v-list-item>
+          <v-list-item-content>
+            <v-list-item-title class="title">
+              Spots Index
+            </v-list-item-title>
+            <v-list-item-subtitle>
+              Page: {{ spots.currentPage }}
+            </v-list-item-subtitle>
+          </v-list-item-content>
+        </v-list-item>
+
+        <v-divider></v-divider>
+
+        <v-list v-if="spots && spots.data" dense nav>
+          <v-list-item v-for="spot in spots.data" :key="spot.slug" link>
+            <router-link
+              :to="{ name: 'spots show', params: { slug: spot.slug } }"
+            >
+              <v-list-item-content>
+                <v-list-item-title>{{ spot.title }}</v-list-item-title>
+              </v-list-item-content>
+            </router-link>
+          </v-list-item>
+        </v-list>
+      </v-navigation-drawer>
+    </v-card>
+    <base-map :address="search" :markers="markers" />
   </div>
 </template>
 
