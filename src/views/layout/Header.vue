@@ -24,11 +24,10 @@
       <v-spacer />
       <base-search />
       <v-spacer />
-      <v-btn v-if="me" icon color="white" :to="{ name: 'notifications' }">
-        <v-icon>mdi-bell</v-icon>
-        <span v-if="unread">
-          {{ unread }}
-        </span>
+      <v-btn v-if="me" icon :to="{ name: 'notifications' }">
+        <v-badge dot bottom overlap :value="unread" color="accent">
+          <v-icon>mdi-bell</v-icon>
+        </v-badge>
       </v-btn>
       <v-btn v-if="me" icon :to="{ name: 'account' }">
         <img
