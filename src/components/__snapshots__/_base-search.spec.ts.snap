@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`_base-search.vue renders correctly 1`] = `
-<v-autocomplete-stub errorcount="1" errormessages="" messages="" rules="" successmessages="" appendicon="$dropdown" backgroundcolor="" hidedetails="true" label="Search" loaderheight="2" clearicon="$clear" flat="true" prependinnericon="mdi-magnify" soloinverted="true" type="text" valuecomparator="function deepEqual(a, b) {
+<v-autocomplete-stub errorcount="1" errormessages="" messages="" rules="" successmessages="" appendicon="$dropdown" backgroundcolor="rgba(255, 255, 255, 0.15)" hidedetails="true" label="Search" loaderheight="2" clearicon="$clear" flat="true" prependinnericon="mdi-magnify" solo="true" type="text" valuecomparator="function deepEqual(a, b) {
   if (a === b) return true;
 
   if (a instanceof Date &amp;&amp; b instanceof Date) {

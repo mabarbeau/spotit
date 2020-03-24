@@ -5,6 +5,7 @@
     "tslint.packageManager": "yarn",
     "cSpell.words": [
         "Interop",
+        "crosshairs",
         "esnext",
         "gapi",
         "geocode",
