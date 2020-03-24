@@ -1,9 +1,9 @@
 <template>
   <div v-if="spot">
     <h1> {{ spot.title }} </h1>
-    <router-link :to="{ name: 'spots' }">
+    <a href="javascript:history.go(-1)">
       Back
-    </router-link>
+    </a>
     <base-map :markers="markers" />
   </div>
 </template>
