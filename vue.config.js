@@ -1,6 +1,9 @@
 const fs = require('fs')
 
 module.exports = {
+  configureWebpack: {
+    devtool: 'source-map',
+  },
   devServer: {
     host: process.env.VUE_APP_HOST ? process.env.VUE_APP_HOST : 'localhost',
     https: process.env.VUE_APP_CERT
