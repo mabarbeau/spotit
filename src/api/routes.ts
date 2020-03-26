@@ -1,5 +1,6 @@
 const routes: any = {
   me: '/me',
+  csrf: '/sanctum/csrf-cookie',
   auth: {
     login: '/auth/login',
     refresh: '/auth/refresh',

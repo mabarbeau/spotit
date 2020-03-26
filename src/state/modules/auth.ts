@@ -25,6 +25,11 @@ export const mutations = {
 }
 
 export const actions = {
+  async setCsrfCookie({ dispatch }: ModuleActionContext) {
+    await Api.get('csrf').catch((error: Error) => {
+      dispatch('errors/set', error, { root: true })
+    })
+  },
   async getMe({ commit, dispatch }: ModuleActionContext) {
     await Api.get('me')
       .then((response) => {
