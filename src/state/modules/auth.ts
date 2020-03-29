@@ -16,21 +16,35 @@ export const state: AuthModule = {
   me: null,
 }
 
-export const getters = {}
+export const getters = {
+  me(state: AuthModule) {
+    const me = localStorage.getItem('me')
+    if (me) {
+      let data = JSON.parse(me)
+      return data
+    }
+    return state.me
+  },
+}
 
 export const mutations = {
-  SET_ME(state: AuthModule, user: User) {
-    if (user) state.me = user
+  SET_ME(state: AuthModule, user: User | null) {
+    localStorage.setItem('me', JSON.stringify(user))
+    state.me = user
   },
 }
 
 export const actions = {
-  async setCsrfCookie({ dispatch }: ModuleActionContext) {
+  async init({ dispatch }: ModuleActionContext) {
+    return Promise.all([dispatch('fetchCsrfCookie'), dispatch('fetchMe')])
+  },
+  async fetchCsrfCookie({ dispatch }: ModuleActionContext) {
     await Api.get('csrf').catch((error: Error) => {
       dispatch('errors/set', error, { root: true })
     })
   },
-  async getMe({ commit, dispatch }: ModuleActionContext) {
+  async fetchMe({ getters, commit, dispatch }: ModuleActionContext) {
+    if (getters.me) return commit('SET_ME', getters.me)
     await Api.get('me')
       .then((response) => {
         commit('SET_ME', response.user)
@@ -50,13 +64,8 @@ export const actions = {
         dispatch('errors/set', error, { root: true })
       })
   },
-  async refresh({ commit, dispatch }: ModuleActionContext) {
-    await Api.post('auth.refresh')
-      .then((response) => {
-        commit('SET_ME', response.user)
-      })
-      .catch((error: Error) => {
-        dispatch('errors/set', error, { root: true })
-      })
+  async logout({ commit }: ModuleActionContext) {
+    commit('SET_ME', null)
+    await Api.put('auth.logout')
   },
 }

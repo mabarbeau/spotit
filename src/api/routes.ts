@@ -3,7 +3,7 @@ const routes: any = {
   csrf: '/sanctum/csrf-cookie',
   auth: {
     login: '/auth/login',
-    refresh: '/auth/refresh',
+    logout: '/auth/logout',
   },
   users: {
     all: '/users',

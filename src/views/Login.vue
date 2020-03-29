@@ -20,7 +20,6 @@ export default Vue.extend({
   },
   methods: {
     async onSuccess(user: any) {
-      await this.$store.dispatch('auth/setCsrfCookie')
       await this.$store.dispatch('auth/login', {
         service: 'google',
         token: user.getAuthResponse().id_token,

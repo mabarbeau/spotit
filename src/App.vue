@@ -49,10 +49,5 @@ export default Vue.extend({
       this.$store.dispatch('errors/clear')
     },
   },
-  created() {
-    this.$store
-      .dispatch('auth/getMe')
-      .then(() => this.$store.dispatch('notifications/countUnread'))
-  },
 })
 </script>
