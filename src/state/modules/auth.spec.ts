@@ -1,6 +1,6 @@
 import { getters, mutations, actions } from './auth'
 const { SET_ME } = mutations
-const { getMe, login } = actions
+// const { fetchMe, login } = actions
 
 const User = {
   name: 'Test User',
