@@ -17,7 +17,7 @@
         </v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar app color="primary">
+    <v-app-bar app clipped-right color="primary">
       <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
       <img alt="Spotit logo" src="@/assets/logo.png" class="h-8 px-2" />
       <v-toolbar-title>Spotit</v-toolbar-title>
@@ -29,18 +29,34 @@
           <v-icon>mdi-bell</v-icon>
         </v-badge>
       </v-btn>
-      <v-btn v-if="me" icon :to="{ name: 'account' }">
-        <img
-          :class="$style.avatar"
-          alt="Avatar"
-          :src="me.picture"
-          class="h-8 px-2"
-        />
-      </v-btn>
-      <v-btn v-else icon :to="{ name: 'login' }">
-        <v-icon color="white" :size="30">mdi-account-circle</v-icon>
-      </v-btn>
+      <div v-if="me">
+        <v-btn icon @click.stop="drawerRight = !drawerRight">
+          <img
+            :class="$style.avatar"
+            alt="Avatar"
+            :src="me.picture"
+            class="h-8 px-2"
+          />
+        </v-btn>
+      </div>
+      <div v-else>
+        <v-menu offset-y>
+          <template v-slot:activator="{ on }">
+            <v-btn icon v-on="on">
+              <v-icon color="white" :size="30">mdi-account-circle</v-icon>
+            </v-btn>
+          </template>
+          <v-list>
+            <v-list-item>
+              <v-list-item-title>
+                <nav-guest />
+              </v-list-item-title>
+            </v-list-item>
+          </v-list>
+        </v-menu>
+      </div>
     </v-app-bar>
+    <nav-user v-if="me" v-model="drawerRight" />
   </div>
 </template>
 
@@ -49,9 +65,15 @@ import Vue from 'vue'
 import { mapState, mapGetters } from 'vuex'
 
 export default Vue.extend({
+  components: {
+    'nav-guest': () =>
+      import(/* webpackChunkName: "NavGuest" */ './NavGuest.vue'),
+    'nav-user': () => import(/* webpackChunkName: "NavUser" */ './NavUser.vue'),
+  },
   data() {
     return {
       drawer: null,
+      drawerRight: null,
       navigation: [
         {
           label: 'Home',
