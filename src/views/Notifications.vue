@@ -4,10 +4,10 @@
       <h1 class="headline pb-2">
         Notifications
       </h1>
-      <div v-if="isLoading === true">
+      <div v-if="!notifications">
         Loading
       </div>
-      <div v-else-if="notifications && notifications.data.length">
+      <div v-else-if="notifications.data.length">
         <v-alert
           v-for="notification in notifications.data"
           :key="notification.id"
@@ -39,18 +39,8 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 
 export default Vue.extend({
-  data() {
-    return {
-      isLoading: true,
-    }
-  },
   computed: {
     ...mapState('notifications', ['notifications']),
-  },
-  created() {
-    this.$store.dispatch('notifications/getNotifications').then(() => {
-      this.isLoading = false
-    })
   },
   methods: {
     markRead(id: string) {

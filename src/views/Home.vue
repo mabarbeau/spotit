@@ -1,9 +1,11 @@
 <template>
   <v-content>
     <v-container class="fill-height" fluid>
-      <v-row align="center" justify="center">
-        Home
-      </v-row>
+      <ul>
+        <li v-for="(message, index) in messages" :key="index">
+          {{ message }}
+        </li>
+      </ul>
     </v-container>
   </v-content>
 </template>

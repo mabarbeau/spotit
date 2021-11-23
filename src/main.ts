@@ -8,6 +8,7 @@ import './registerServiceWorker'
 import './styles/main.scss'
 import {} from 'googlemaps'
 import vuetify from './plugins/vuetify'
+import Pusher from 'pusher-js'
 
 // eslint-disable-next-line func-names
 window.onerror = function(message, source, lineno, colno) {
@@ -24,6 +25,13 @@ Vue.config.errorHandler = (error, vm, info) => {
     info,
   })
 }
+
+Pusher.logToConsole = true
+Vue.prototype.$pusher = new Pusher('d4babe8cf31df6ecfd73', {
+  cluster: 'us3',
+  forceTLS: true,
+})
+
 new Vue({
   router,
   store,

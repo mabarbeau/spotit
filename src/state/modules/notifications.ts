@@ -1,8 +1,14 @@
 import Api from '@/api'
 import { RootState } from '../store'
 import { ActionContext } from 'vuex'
+import Pusher from 'pusher-js'
 
-interface Notifications {
+const pusher = new Pusher('d4babe8cf31df6ecfd73', {
+  cluster: 'us3',
+  forceTLS: true,
+  authEndpoint: '/broadcasting/auth',
+})
+interface Notification {
   message: string
   url?: string
   read?: boolean
@@ -12,7 +18,7 @@ interface Notifications {
 
 interface NotificationsCollection {
   currentPage: number
-  data: Notifications[]
+  data: Notification[]
   firstPageUrl: string
   from: number
   lastPage: number
@@ -46,12 +52,20 @@ export const mutations = {
   ) {
     state.notifications = notifications
   },
+  ADD_NOTIFICATION(state: NotificationsModule, notification: Notification) {
+    if (state.notifications && state.notifications.data) {
+      state.notifications.data.push(notification)
+    }
+  },
   SET_UNREAD_TOTAL(state: NotificationsModule, total: number) {
     state.unread = total
   },
 }
 
 export const actions = {
+  async init({ dispatch }: ModuleActionContext) {
+    return Promise.all([dispatch('getNotifications'), dispatch('subscribe')])
+  },
   async getNotifications({ commit, dispatch }: ModuleActionContext) {
     await Api.get('notifications.all')
       .then((response) => {
@@ -61,7 +75,13 @@ export const actions = {
         dispatch('errors/set', error, { root: true })
       })
   },
-  async create({ dispatch }: ModuleActionContext, payload: Notifications) {
+  async subscribe({ commit, rootState }: ModuleActionContext) {
+    var channel = pusher.subscribe(`user.${rootState.auth.me.id}`)
+    channel.bind('notification-created', (data: Notification) => {
+      commit('SET_NOTIFICATIONS', JSON.stringify(data))
+    })
+  },
+  async create({ dispatch }: ModuleActionContext, payload: Notification) {
     await Api.post('notifications.create', { payload })
       .then(() => dispatch('countUnread'))
       .catch((error: Error) => {
