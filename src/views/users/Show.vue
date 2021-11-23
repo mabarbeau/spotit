@@ -1,5 +1,5 @@
 <template>
-  <div v-if="user">
+  <div>
     <h1>{{ user.name }}</h1>
     <h2>User</h2>
   </div>
@@ -17,18 +17,16 @@ export default Vue.extend({
     },
   },
   computed: mapState('users', ['user']),
-  watch: {
-    $route() {
-      this.load()
-    },
-  },
-  mounted() {
-    this.load()
-  },
-  methods: {
-    load() {
-      this.$store.dispatch('users/loadUser', this.id)
-    },
+  beforeRouteEnter(to: any, from: any, next: any) {
+    next((vm: any) => {
+      vm.$store.dispatch('users/loadUser', vm.id).then(() => {
+        if (Object.keys(vm.user).length === 0) {
+          vm.$router.push({
+            name: '404',
+          })
+        }
+      })
+    })
   },
 })
 </script>

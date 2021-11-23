@@ -1,5 +1,5 @@
 export default function render(id: string, params = {}) {
-  const init = new Promise((resolve) => {
+  const init = new Promise(resolve => {
     const script = document.createElement('script')
     script.src = 'https://apis.google.com/js/platform.js'
     script.async = true
@@ -11,13 +11,11 @@ export default function render(id: string, params = {}) {
   })
   init.then(() => {
     params = {
-      scope: 'profile email openid',
+      scope: 'profile email',
       width: 240,
       height: 50,
       longtitle: true,
-      theme: window.matchMedia('(prefers-color-scheme: dark)').matches
-        ? 'dark'
-        : 'light',
+      theme: 'dark',
       ...params,
     }
     // @ts-ignore

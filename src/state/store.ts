@@ -6,10 +6,6 @@ import modules from './modules'
 
 Vue.use(Vuex)
 
-export interface RootState {
-  [x: string]: any
-}
-
 const store = new Vuex.Store({
   modules,
   // Enable strict mode in development to get a warning

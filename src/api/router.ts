@@ -1,83 +1,80 @@
+// eslint-disable-next-line no-unused-vars
 import axios, { AxiosInstance, AxiosResponse, AxiosRequestConfig } from 'axios'
 import { transform, isEmpty, camelCase } from 'lodash'
 import querystring from 'querystring'
 
-interface RouteParameters<payload = object> {
-  params?: object | undefined
-  payload?: payload
-}
-
-export class RouteNotFoundException extends Error {
+class RouteNotFoundException extends Error {
   constructor(message: string) {
     super(`\n\nRoute Not Found Exception: ${message}`)
     Object.setPrototypeOf(this, RouteNotFoundException.prototype)
   }
 }
 
-export class ParamNotFoundException extends Error {
+class ParamNotFoundException extends Error {
   constructor(message: string) {
     super(`\n\nParameter Not Found Exception: ${message}`)
-    Object.setPrototypeOf(this, ParamNotFoundException.prototype)
+    Object.setPrototypeOf(this, RouteNotFoundException.prototype)
   }
 }
 
 export default class Router {
   protected routes: any
 
-  protected client: AxiosInstance
+  protected axios: AxiosInstance
 
-  constructor(routes: any, config?: AxiosRequestConfig) {
+  constructor(routes: any, config: AxiosRequestConfig | undefined = undefined) {
     this.routes = routes
-    this.client = axios.create(config)
+    this.axios = axios.create(config)
   }
 
-  public async get(
-    name: string,
-    {
-      params = undefined,
-      payload,
-    }: RouteParameters<querystring.ParsedUrlQueryInput | string> = {},
-    config?: AxiosRequestConfig
-  ) {
+  public async get({
+    name,
+    params = undefined,
+    payload = '',
+  }: {
+    name: string
+    params?: any | undefined
+    payload?: querystring.ParsedUrlQueryInput | string
+  }) {
     const query =
       typeof payload === 'string'
         ? payload
         : `?${querystring.stringify(payload)}`
-    return this.return(
-      this.client.get(`${this.url(name, params)}${query}`, config)
-    )
+    return this.return(this.axios.get(this.url(name, params) + query))
   }
 
-  public async post(
-    name: string,
-    { params = undefined, payload = undefined }: RouteParameters = {},
-    config?: AxiosRequestConfig
-  ) {
-    return this.return(
-      this.client.post(this.url(name, params), payload, config)
-    )
+  public async post({
+    name,
+    params = undefined,
+    payload = undefined,
+  }: Routing.RouteParameters) {
+    return this.return(this.axios.post(this.url(name, params), payload))
   }
 
-  public async put(
-    name: string,
-    { params = undefined, payload = undefined }: RouteParameters = {},
-    config?: AxiosRequestConfig
-  ) {
-    return this.return(this.client.put(this.url(name, params), payload, config))
+  public async put({
+    name,
+    params = undefined,
+    payload = undefined,
+  }: Routing.RouteParameters) {
+    return this.return(this.axios.put(this.url(name, params), payload))
   }
 
-  public async patch(
-    name: string,
-    { params = undefined, payload = undefined }: RouteParameters = {},
-    config?: AxiosRequestConfig
-  ) {
-    return this.return(
-      this.client.patch(this.url(name, params), payload, config)
-    )
+  public async patch({
+    name,
+    params = undefined,
+    payload = undefined,
+  }: Routing.RouteParameters) {
+    return this.return(this.axios.patch(this.url(name, params), payload))
   }
 
-  public async delete(name: string, params?: any, config?: AxiosRequestConfig) {
-    return this.return(this.client.delete(this.url(name, params), config))
+  public async delete({
+    name,
+    params = undefined,
+  }: {
+    name: string
+    params?: any | undefined
+  }) {
+    return this.return(this.axios.delete(this.url(name, params)))
   }
 
   protected url(name: string, params: any = undefined): string {
@@ -85,7 +82,7 @@ export default class Router {
     if (url.includes(':')) {
       url = url
         .split('/')
-        .map((segment) => {
+        .map(segment => {
           if (!segment.includes(':')) return segment
           const key = segment.substr(1)
           if (!(key in params)) {
@@ -113,7 +110,7 @@ export default class Router {
   }
 
   protected async return(response: Promise<AxiosResponse>) {
-    return response.then((reply) => this.camelCaseKeys(reply.data))
+    return response.then(reply => this.camelCaseKeys(reply.data))
   }
 
   protected camelCaseKeys(object: any): any {

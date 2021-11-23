@@ -1,57 +1,49 @@
 import Api from '@/api'
-import { ActionContext } from 'vuex'
-import { RootState } from '../store'
 
-interface Spots {}
+interface SpotsInterface {}
 
-interface SpotsCollection {
-  data: Spots[]
+interface SpotsCollectionInterface {
+  data: SpotsInterface[]
 }
 
-interface SpotsModule {
-  spot: Spots | undefined
-  spots: SpotsCollection | undefined
+interface SpotsStateInterface {
+  spot: SpotsInterface | Object
+  spots: SpotsCollectionInterface | Object
 }
 
-type ModuleActionContext = ActionContext<SpotsModule, RootState>
-
-export const state: SpotsModule = {
-  spot: undefined,
-  spots: undefined,
+export const state: SpotsStateInterface = {
+  spot: {},
+  spots: {},
 }
 
 export const getters = {}
 
 export const mutations = {
-  SET_SPOTS(state: SpotsModule, spots: SpotsCollection) {
+  SET_SPOTS(state: SpotsStateInterface, spots: SpotsCollectionInterface) {
     state.spots = spots
   },
-  SET_SPOT(state: SpotsModule, spot: Spots) {
+  SET_SPOT(state: SpotsStateInterface, spot: SpotsInterface) {
     state.spot = spot
   },
 }
 
 export const actions = {
-  async loadSpots({ commit, dispatch }: ModuleActionContext) {
-    await Api.get('spots.all', {
-      payload: window.location.search,
-    })
-      .then((spots) => {
-        commit('SET_SPOTS', spots)
+  async loadSpots({ commit }: any) {
+    commit(
+      'SET_SPOTS',
+      await Api.get({
+        name: 'spots.all',
+        payload: window.location.search,
       })
-      .catch((error: Error) => {
-        dispatch('errors/set', error, { root: true })
-      })
+    )
   },
-  async loadSpot({ commit, dispatch }: ModuleActionContext, slug: string) {
-    await Api.get('spots.find', {
-      params: { slug },
-    })
-      .then((spot) => {
-        commit('SET_SPOT', spot)
+  async loadSpot({ commit }: any, slug: string) {
+    commit(
+      'SET_SPOT',
+      await Api.get({
+        name: 'spots.find',
+        params: { slug },
       })
-      .catch((error: Error) => {
-        dispatch('errors/set', error, { root: true })
-      })
+    )
   },
 }

@@ -1,31 +1,20 @@
 <template>
-  <div class="w-full h-full flex">
-    <v-card width="256" class="h-full rounded-none">
-      <v-navigation-drawer permanent>
-        <v-list-item>
-          <v-list-item-content>
-            <v-list-item-title class="title">
-              Spots Index
-            </v-list-item-title>
-          </v-list-item-content>
-        </v-list-item>
-
-        <v-divider></v-divider>
-
-        <v-list v-if="spots && spots.data" dense nav>
-          <v-list-item v-for="spot in spots.data" :key="spot.slug" link>
-            <router-link
-              :to="{ name: 'spots show', params: { slug: spot.slug } }"
-            >
-              <v-list-item-content>
-                <v-list-item-title>{{ spot.title }}</v-list-item-title>
-              </v-list-item-content>
-            </router-link>
-          </v-list-item>
-        </v-list>
-      </v-navigation-drawer>
-    </v-card>
-    <base-map :address="search" :markers="markers" />
+  <div>
+    <h1>
+      Spots Index
+      {{ spots.currentPage }}
+    </h1>
+    <section>
+      <base-pagination
+        :list="spots"
+        text="title"
+        :name="$route.name"
+        :child-name="`${$route.name} show`"
+      />
+    </section>
+    <section>
+      <base-map :markers="markers" />
+    </section>
   </div>
 </template>
 
@@ -34,14 +23,7 @@ import Vue from 'vue'
 import { mapState } from 'vuex'
 
 export default Vue.extend({
-  data(): {
-    [key: string]: any
-    search: null | string
-  } {
-    return {
-      search: null,
-    }
-  },
+  name: 'SpotsIndex',
   computed: {
     ...mapState('spots', ['spots']),
     markers(): google.maps.LatLngLiteral[] {
@@ -62,16 +44,11 @@ export default Vue.extend({
     },
   },
   watch: {
-    '$route.query.search': {
-      immediate: true,
-      handler(newVal: string, oldVal: string) {
-        if (newVal != oldVal) {
-          this.search = newVal
-        }
-      },
+    $route() {
+      this.load()
     },
   },
-  created() {
+  mounted() {
     this.load()
   },
   methods: {

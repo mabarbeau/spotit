@@ -1,15 +1,13 @@
 <template>
-  <div>
-    <h1>
-      Page not found
-    </h1>
-  </div>
+  <footer class="bg-gray-800 text-gray-100 text-center">
+    Footer
+  </footer>
 </template>
 
 <script lang="ts">
 import Vue from 'vue'
 
 export default Vue.extend({
-  name: '404',
+  name: 'AppHeader',
 })
 </script>

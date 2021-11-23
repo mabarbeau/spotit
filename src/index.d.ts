@@ -1,3 +1,5 @@
+/* eslint-disable no-unused-vars */
+
 declare module 'googlemaps'
 
 declare namespace App {
@@ -11,12 +13,11 @@ declare namespace App {
     404: string
     500: string
   }
-  interface Alert {
-    type: string
-    text: string
-  }
 }
-declare interface Window {
-  gmapsCallback: () => void
-  google: any
+declare namespace Routing {
+  interface RouteParameters {
+    name: string
+    params?: any | undefined
+    payload?: any | undefined
+  }
 }

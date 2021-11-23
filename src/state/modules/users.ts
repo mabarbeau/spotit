@@ -1,6 +1,4 @@
 import Api from '@/api'
-import { ActionContext } from 'vuex'
-import { RootState } from '../store'
 
 interface User {
   name: string
@@ -21,46 +19,46 @@ interface UserCollection {
   total: number
 }
 
-interface UserModule {
-  user: User | undefined
-  users: UserCollection | undefined
+interface UserState {
+  user: User | Object
+  users: UserCollection | Object
 }
 
-type ModuleActionContext = ActionContext<UserModule, RootState>
-
-export const state: UserModule = {
-  user: undefined,
-  users: undefined,
+export const state: UserState = {
+  user: {},
+  users: {},
 }
 
 export const getters = {}
 
 export const mutations = {
-  SET_USERS(state: UserModule, users: UserCollection) {
+  SET_USERS(state: UserState, users: UserCollection) {
     state.users = users
   },
-  SET_USER(state: UserModule, user: User) {
+  SET_USER(state: UserState, user: User) {
     state.user = user
   },
 }
 
 export const actions = {
-  async loadUsers({ commit, dispatch }: ModuleActionContext) {
-    Api.get('users.all', {
+  async loadUsers({ commit, dispatch }: any) {
+    Api.get({
+      name: 'users.all',
       payload: window.location.search,
     })
-      .then((users) => {
+      .then(users => {
         commit('SET_USERS', users)
       })
       .catch((error: Error) => {
         dispatch('errors/set', error, { root: true })
       })
   },
-  async loadUser({ commit, dispatch }: ModuleActionContext, id: string) {
-    Api.get('users.find', {
+  async loadUser({ commit, dispatch }: any, id: string) {
+    Api.get({
+      name: 'users.find',
       params: { id },
     })
-      .then((user) => {
+      .then(user => {
         commit('SET_USER', user)
       })
       .catch((error: Error) => {

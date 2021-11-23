@@ -1,4 +1,3 @@
-// https://github.com/chrisvfritz/vue-enterprise-boilerplate/blob/master/src/state/modules/index.js
 // Register each file as a corresponding Vuex module. Module nesting
 // will mirror [sub-]directory hierarchy and modules are namespaced
 // as the camelCase equivalent of their file name.
@@ -30,11 +29,11 @@ function getNamespace(subtree: any, path: any[]): any {
     // Search for files in subdirectories.
     true,
     // Include any .ts files that are not this file or a unit test.
-    /^((?!index|\.spec\.).)*\.ts$/
+    /^((?!index|\.unit\.).)*\.ts$/
   )
 
   // For every Vuex module...
-  requireModule.keys().forEach((fileName) => {
+  requireModule.keys().forEach(fileName => {
     const moduleDefinition =
       requireModule(fileName).default || requireModule(fileName)
 

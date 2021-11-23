@@ -1,10 +1,5 @@
 <template>
-  <div class="BaseMap">
-    <div v-if="error">
-      {{ error }}
-    </div>
-    <div v-else class="BaseMap" />
-  </div>
+  <div class="BaseMap" />
 </template>
 
 <script lang="ts">
@@ -19,72 +14,41 @@ function instanceOfLatLngLiteral(
 
 export default Vue.extend({
   props: {
-    address: {
-      type: String,
-      default: null,
-    },
     markers: {
       type: Array,
-      default() {
-        return []
-      },
-      validator: (array) =>
-        array.every((item) => instanceOfLatLngLiteral(item)),
+      validator: array => array.every(item => instanceOfLatLngLiteral(item)),
+      required: true,
     },
   },
   data(): {
-    error: string | undefined
     map: google.maps.Map | undefined
+    // eslint-disable-next-line indent
   } {
     return {
-      error: undefined,
       map: undefined,
     }
   },
-  watch: {
-    address(value: string) {
-      this.geocode(value)
-    },
-  },
-  async created() {
+  async mounted() {
     try {
-      await gmapsInit()
+      const google: any = await gmapsInit()
       this.map = new google.maps.Map(this.$el)
-      this.geocode(this.address)
-    } catch (error) {
-      this.error = error.toString()
-    }
-  },
-  methods: {
-    geocode(address: string) {
-      const geocoder: google.maps.Geocoder = new google.maps.Geocoder()
-      geocoder.geocode(
-        { address: address || 'USA' },
-        (results: Array<any>, status: any) => {
-          if (status !== 'OK' || !results[0]) {
-            throw new Error(status)
-          }
-          if (this.map) {
-            this.map.setCenter(results[0].geometry.location)
-            this.map.fitBounds(results[0].geometry.viewport)
-          }
-        }
-      )
-    },
-    fitBounds(markers: google.maps.LatLngLiteral[]) {
       const bounds = new google.maps.LatLngBounds()
-      if (this.map && markers) {
-        markers.forEach((marker) => {
+      if (this.map && this.markers) {
+        this.markers.forEach(marker => {
           bounds.extend(marker)
+          // eslint-disable-next-line no-new
           new google.maps.Marker({
             position: marker,
             map: this.map,
           })
         })
+
         this.map.fitBounds(bounds)
         this.map.panToBounds(bounds)
       }
-    },
+    } catch (error) {
+      console.error(error)
+    }
   },
 })
 </script>
@@ -92,6 +56,6 @@ export default Vue.extend({
 <style>
 .BaseMap {
   width: 100%;
-  height: 100%;
+  height: 505px;
 }
 </style>

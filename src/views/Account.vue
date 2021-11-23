@@ -1,5 +1,5 @@
 <template>
-  <div class="absolute h-full w-full flex justify-center">
+  <div class="bg-gray-200 absolute h-full w-full flex justify-center">
     Account
   </div>
 </template>

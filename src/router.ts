@@ -40,14 +40,6 @@ export default new Router({
         import(/* webpackChunkName: "account" */ '@/views/Account.vue'),
     },
     {
-      path: '/notifications',
-      name: 'notifications',
-      component: () =>
-        import(
-          /* webpackChunkName: "notifications" */ '@/views/Notifications.vue'
-        ),
-    },
-    {
       path: '/login',
       name: 'login',
       component: () =>
@@ -67,9 +59,8 @@ export default new Router({
       props: true,
     },
     {
-      path: '/404',
-      alias: '*',
-      name: 'page not found',
+      path: '*',
+      name: '404',
       component: () =>
         import(/* webpackChunkName: "404" */ '@/views/errors/404.vue'),
     },
