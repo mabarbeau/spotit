@@ -1,7 +1,5 @@
 # Location based services application front-end.
 
-#### Under active development
-
 ## Project setup
 Copy `.env.example` to `.env.local`
 ```bash
